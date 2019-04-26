@@ -40,10 +40,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Use routes as a module (see index.js)
-//require('./routes')(app, router);
-
-app.use('/api/users',users);
-app.use('/api/tasks',tasks);
+require('./routes')(app, router);
 
 // Start the server
 app.listen(port);

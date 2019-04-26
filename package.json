@@ -1,10 +1,13 @@
 {
-  "name": "mp3_starter_19",
+  "name": "finalproject_magics",
   "version": "1.0.0",
-  "description": "MP3 Starter for CS498RK Spring 2019",
+  "description": "Final project for CS498web",
   "authors": [
-    "James Lee <jwlee11@illinois.edu>",
-    "Sujay Khandekar <khandek2@illinois.edu>"
+    "Matthew Arensdorf <arensdo2@illinois.edu>",
+    "Xinyi Guo <xinyig2@illinois.edu>",
+    "Wanying Zheng <wanying5@illinois.edu>",
+    "Thomas Liu <tliu61@illinois.edu>",
+    "Ian Cabacungan <isc2@illinois.edu>"
   ],
   "scripts": {
     "start": "nodemon --exec node server.js"
@@ -17,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/uiuc-web-programming/mp3_starter_17.git"
+    "url": "https://github.com/marensdorf/cs498web_final_magics"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
