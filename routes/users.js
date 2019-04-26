@@ -203,7 +203,7 @@ router.post('',function(req,res){
 						"message": "Cannot post user",
 						"data": user
 					});
-					res.status(HttpStatus.BAD_REQUEST).ssend(json);
+					res.status(HttpStatus.BAD_REQUEST).send(json);
 				});
 				}
 			catch(e){
