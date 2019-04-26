@@ -6,7 +6,8 @@ var UserSchema = new mongoose.Schema({
     name:             { type: String,   required: true },
     email:            { type: String,   required: true },
     password:         { type: String,   required: true },
-    security:         { type: String,   required: true },
+    securityquestion: { type: String,   required: true },
+    securityanswer:   { type: String,   required: true },
     createdevents:    { type: [String], default: [] },
     savedevents:      { type: [String], default: [] },
 

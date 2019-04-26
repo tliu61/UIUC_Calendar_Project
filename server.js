@@ -1,5 +1,6 @@
 // Get the packages we need
 var express = require('express'),
+    path = require('path'),
     router = express.Router(),
     mongoose = require('mongoose'),
     secrets = require('./config/secrets'),
@@ -9,7 +10,7 @@ var express = require('express'),
 
 // Create our Express application
 var app = express();
-
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Use environment defined port or 4000
 var port = process.env.PORT || 4000;
@@ -42,12 +43,11 @@ app.use(bodyParser.json());
 // Use routes as a module (see index.js)
 require('./routes')(app, router);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'))
+});
+
 // Start the server
 app.listen(port);
-
-
-
-
-
 
 console.log('Server running on port ' + port);
