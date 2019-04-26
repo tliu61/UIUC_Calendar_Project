@@ -124,8 +124,8 @@ router.get('',function(req,res){
 			options["limit"] = JSON.parse(limit);
 		}
 		var count =  req.query.count;
-		if(typeof skip!= 'undefined'){
-			options["skip"] = JSON.parse(count);
+		if(typeof count!= 'undefined'){
+			options["count"] = JSON.parse(count);
 		}
 		const projection =  (typeof select === 'undefined') ? {}:JSON.parse(select);
 		if(where._id==1){
