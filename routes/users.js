@@ -53,7 +53,7 @@ router.put("/:id",function(req,res){
 				"message": "OK",
 				"data": user
 			});
-			res.status(HttpStatus.OK).send(json);		
+			res.status(HttpStatus.OK).send(json);
 		})
 	}
 	catch(e){
@@ -82,7 +82,7 @@ router.delete('/:user',function(req,res){
 		var json = JSON.stringify({
 			"message": "OK",
 		});
-		res.status(HttpStatus.OK).send(json);		
+		res.status(HttpStatus.OK).send(json);
 	})
 	//console.log("User:=",JSON.stringify(result));
 })
