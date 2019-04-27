@@ -29,10 +29,13 @@ router.get('/:id',function(req,res){
 })
 
 router.get('',function(req,res){
+	//var where = req.query.where;
+	//where = (typeof where == 'undefined') ? {}:JSON.parse(where);
+
 	Event.find({}, function(err, events) {
 		if(err){
 			var json = JSON.stringify({
-				"message": "Cannot find all events",
+				"message": "Cannot find the events",
 				"data": events
 			});
 			res.status(HttpStatus.NOT_FOUND).send(json);
@@ -49,7 +52,7 @@ router.get('',function(req,res){
 router.post('',function(req,res){
 	var body = req.body;
 
-	var event = new Event({title:body.title, email: body.email, date: body.date,creator: body.creator, address: body.address, introduction: body.introduction, coverpicture: body.coverpicture,tags:event.tags})
+	var event = new Event({title:body.title, email: body.email, date: body.date,creator: body.creator, address: body.address, introduction: body.introduction, coverpicture: body.coverpicture,tags:body.tags})
 
 	event.save().then(function(event){
 		var json = JSON.stringify({
