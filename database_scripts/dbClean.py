@@ -2,7 +2,7 @@
 
 """
  * @file dbClean.py
- * Used in CS498RK MP4 to empty database of all users and tasks.
+ * Used in CS498RK MP4 to empty database of all users and events.
  *
  * @author Aswin Sivaraman
  * @date Created: Spring 2015
@@ -31,17 +31,17 @@ def getUsers(conn):
 
     return users
 
-def getTasks(conn):
-    # Retrieve the list of tasks
-    conn.request("GET","""/api/tasks?where={"_id":1}""")
+def getEvents(conn):
+    # Retrieve the list of events
+    conn.request("GET","""/api/events?where={"_id":1}""")
     response = conn.getresponse()
     data = response.read()
     d = json.loads(data)
 
     # Array of user IDs
-    tasks = [str(d['data'][x]['_id']) for x in range(len(d['data']))]
+    events = [str(d['data'][x]['_id']) for x in range(len(d['data']))]
 
-    return tasks
+    return events
 
 def main(argv):
 
@@ -81,24 +81,24 @@ def main(argv):
         # Fetch a list of users
         users = getUsers(conn)
 
-    # Fetch a list of tasks
-    tasks = getTasks(conn)
+    # Fetch a list of events
+    events = getEvents(conn)
 
-    # Loop for as long as the database still returns tasks
-    while len(tasks):
+    # Loop for as long as the database still returns events
+    while len(events):
 
-        # Delete each individual task
-        for task in tasks:
-            conn.request("DELETE","/api/tasks/"+task)
+        # Delete each individual event
+        for event in events:
+            conn.request("DELETE","/api/events/"+event)
             response = conn.getresponse()
             data = response.read()
 
-        # Fetch a list of tasks
-        tasks = getTasks(conn)
+        # Fetch a list of events
+        events = getEvents(conn)
 
     # Exit gracefully
     conn.close()
-    print("All users and tasks removed at "+baseurl+":"+str(port))
+    print("All users and events removed at "+baseurl+":"+str(port))
 
 
 if __name__ == "__main__":
