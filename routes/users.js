@@ -86,8 +86,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    var ret = await User.findOneAndUpdate({_id: req.params.id}, req.body).exec();
-    var user = await User.findById(req.params.id).exec();
+    var user = await User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}).exec();
     res.send({
       message: 'OK',
       data: user
@@ -163,12 +162,10 @@ router.get('/:id/security/:answer', async (req, res) => {
 // Custom event addition
 router.put('/:email/create/:e_id', async (req, res) => {
   try {
-    var user = await User.findOne({ email: req.params.email });
-    user.createdevents.push(req.params.e_id);
-    var ret = await user.save();
+    var user = await User.findOneAndUpdate({email: req.params.email}, {$push: {createdevents: req.params.e_id}}, {new: true}).exec();
     res.send({
       message: 'OK',
-      data: ret
+      data: user
     });
   } catch (e) {
     res.status(404).send({
@@ -180,12 +177,10 @@ router.put('/:email/create/:e_id', async (req, res) => {
 
 router.put('/:email/save/:e_id', async (req, res) => {
   try {
-    var user = await User.findOne({ email: req.params.email });
-    user.savedevents.push(req.params.e_id);
-    var ret = await user.save();
+    var user = await User.findOneAndUpdate({email: req.params.email}, {$push: {savedevents: req.params.e_id}}, {new: true}).exec();
     res.send({
       message: 'OK',
-      data: ret
+      data: user
     });
   } catch (e) {
     res.status(404).send({
