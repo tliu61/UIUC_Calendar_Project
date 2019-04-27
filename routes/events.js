@@ -6,6 +6,28 @@ var express = require('express'),
 
 router.use(bodyParser.json());
 
+router.get('/:id',function(req,res){
+	var id = req.params.id;
+	Event.findById(id,function(err,event){
+		console.log("Get users:",event);
+		if(err){
+			var json = JSON.stringify({
+				"message": "Cannot get the event",
+				"data": event
+			});
+			res.status(HttpStatus.NOT_FOUND).send(json);
+			return;
+		}
+		var json = JSON.stringify({
+			"message": "OK",
+			"data": event
+		});
+		res.status(HttpStatus.OK).send(json);
+
+	})
+
+})
+
 router.get('',function(req,res){
 	Event.find({}, function(err, events) {
 		if(err){
@@ -27,7 +49,7 @@ router.get('',function(req,res){
 router.post('',function(req,res){
 	var body = req.body;
 
-	var event = new Event({title:body.title, email: body.email, date: body.date,creator: body.creator, address: body.address, introduction: body.introduction, coverpicture: body.coverpicture})
+	var event = new Event({title:body.title, email: body.email, date: body.date,creator: body.creator, address: body.address, introduction: body.introduction, coverpicture: body.coverpicture,tags:event.tags})
 
 	event.save().then(function(event){
 		var json = JSON.stringify({
@@ -42,9 +64,57 @@ router.post('',function(req,res){
 		});
 		res.status(HttpStatus.BAD_REQUEST).send(json);
 	});
-
-	//console.log("Post Task name:",req.body.name);
 })
+
+router.delete('/:id',function(req,res){
+	//var options = {new:true};
+	console.log("Remove event:",req.params.id);
+	var query = {_id:req.params.id}
+	result = Event.deleteOne(query,function(err){
+		//console.log("Remove user:",user);
+		if(err){
+			var json = JSON.stringify({
+				"message": "Cannot the delete event",
+			});
+			res.status(HttpStatus.NOT_FOUND).send(json);
+			return;
+		}
+		var json = JSON.stringify({
+			"message": "OK",
+			"data": "Delete task with id " + req.params.id 
+		});
+		res.status(HttpStatus.OK).send(json);		
+	})
+	//console.log("User:=",JSON.stringify(result));
+})
+
+router.put("/:id",function(req,res){
+	//console.log(req.url);
+	var query = {_id:req.params.id}
+	//console.log("Body:",req.body)
+	var update = req.body;
+	//console.log("Before Update users:",update);
+	var options = {new:true};
+
+	Event.update(query,update,options,function(err,event){
+		//console.log("Update users:",user);
+		if(err){
+			var json = JSON.stringify({
+				"message": "Cannot update event",
+				"data": event
+			});
+			res.status(HttpStatus.NOT_FOUND).send(json);
+			return;
+		}
+		var json = JSON.stringify({
+			"message": "OK",
+			"data": "Update success"
+		});
+		res.status(HttpStatus.OK).send(json);		
+	})
+
+})
+
 
 
 
