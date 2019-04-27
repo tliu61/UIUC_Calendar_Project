@@ -10,7 +10,8 @@
     "Ian Cabacungan <isc2@illinois.edu>"
   ],
   "scripts": {
-    "start": "nodemon --exec node server.js"
+    "start": "nodemon --exec node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "babel": {
     "presets": [
@@ -29,9 +30,5 @@
     "mongoose": "^5.4.18",
     "nodemon": "^1.11.0",
     "password-hash": "^1.2.2"
-  }, 
-  "scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   }
 }
