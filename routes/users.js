@@ -115,4 +115,49 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Psuedo User Authentication
+router.get('/:id/password/:pass', async (req, res) => {
+  try {
+    console.log('Getting user with password authentication');
+    var user = await User.findById(req.params.id).exec();
+    if (passwordHash.verify(req.params.pass, user.password)) {
+      res.send({
+        message: 'OK',
+        data: user
+      });
+    } else {
+      res.status(401).send({
+        message: 'Incorrect Password',
+      });
+    }
+  } catch (e) {
+    res.status(404).send({
+      message: 'ERROR',
+      data: e
+    });
+  }
+});
+
+router.get('/:id/security/:answer', async (req, res) => {
+  try {
+    console.log('Getting user with security question authentication');
+    var user = await User.findById(req.params.id).exec();
+    if (user.securityanswer == req.params.answer) {
+      res.send({
+        message: 'OK',
+        data: user
+      });
+    } else {
+      res.status(401).send({
+        message: 'Incorrect security answer',
+      });
+    }
+  } catch (e) {
+    res.status(404).send({
+      message: 'ERROR',
+      data: e
+    });
+  }
+});
+
 module.exports = router;
