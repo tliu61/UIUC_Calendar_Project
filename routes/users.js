@@ -163,7 +163,7 @@ router.get('/:id/security/:answer', async (req, res) => {
 // Custom event addition
 router.put('/:email/create/:e_id', async (req, res) => {
   try {
-    var user = User.findOne({ email: req.params.email });
+    var user = await User.findOne({ email: req.params.email });
     user.createdevents.push(req.params.e_id);
     var ret = await user.save();
     res.send({
@@ -180,7 +180,7 @@ router.put('/:email/create/:e_id', async (req, res) => {
 
 router.put('/:email/save/:e_id', async (req, res) => {
   try {
-    var user = User.findOne({ email: req.params.email });
+    var user = await User.findOne({ email: req.params.email });
     user.savedevents.push(req.params.e_id);
     var ret = await user.save();
     res.send({
