@@ -62,8 +62,7 @@ router.post('',function(req,res){
 		res.status(HttpStatus.CREATED).send(json);
 	}).catch(function(err){
 		var json = JSON.stringify({
-			"message": "Cannot post event",
-			"data": err
+			"message": "Cannot post the event : "+err.message
 		});
 		res.status(HttpStatus.BAD_REQUEST).send(json);
 	});
@@ -77,7 +76,7 @@ router.delete('/:id',function(req,res){
 		//console.log("Remove user:",user);
 		if(err){
 			var json = JSON.stringify({
-				"message": "Cannot the delete event",
+				"message": "Cannot delete the event",
 			});
 			res.status(HttpStatus.NOT_FOUND).send(json);
 			return;
@@ -103,10 +102,9 @@ router.put("/:id",function(req,res){
 		//console.log("Update users:",user);
 		if(err){
 			var json = JSON.stringify({
-				"message": "Cannot update event",
-				"data": event
+				"message": "Cannot update the event : "+err.message
 			});
-			res.status(HttpStatus.NOT_FOUND).send(json);
+			res.status(HttpStatus.BAD_REQUEST).send(json);
 			return;
 		}
 		var json = JSON.stringify({
@@ -117,8 +115,5 @@ router.put("/:id",function(req,res){
 	})
 
 })
-
-
-
 
 module.exports = router;
