@@ -21,7 +21,7 @@ def usage():
 
 def getUsers(conn):
     # Retrieve the list of users
-    conn.request("GET","""/api/users?where={"_id":1}""")
+    conn.request("GET","""/api/users""")
     response = conn.getresponse()
     data = response.read()
     d = json.loads(data)
@@ -33,7 +33,7 @@ def getUsers(conn):
 
 def getEvents(conn):
     # Retrieve the list of events
-    conn.request("GET","""/api/events?where={"_id":1}""")
+    conn.request("GET","""/api/events""")
     response = conn.getresponse()
     data = response.read()
     d = json.loads(data)
@@ -71,6 +71,7 @@ def main(argv):
 
     # Loop for as long as the database still returns users
     while len(users):
+        print("removing " + str(len(users)) + " users")
 
         # Delete each individual user
         for user in users:
@@ -86,6 +87,7 @@ def main(argv):
 
     # Loop for as long as the database still returns events
     while len(events):
+        print("removing " + str(len(events)) + " events")
 
         # Delete each individual event
         for event in events:
