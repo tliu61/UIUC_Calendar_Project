@@ -1,0 +1,19 @@
+.footer_body{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width: 100%;
+    background-color: gold;
+    padding: 0;
+    height: 30px;
+}
+
+.footer_footer{
+    text-align: center;
+    text-decoration: none;
+    transform: translateY(-50%);
+}
+
+.footer_text{
+    text-align: center;
+}

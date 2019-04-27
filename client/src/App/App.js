@@ -1,48 +1,23 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-//
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import Home from './pages/Home';
-import List from './pages/List';
+import React,{Component} from 'react';
+//import 'semantic-ui-css/semantic.min.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Home from '../Components/Home'
+import Login from '../Components/Login'
+import '../Styles/App.css'
 
 class App extends Component {
-  render() {
-    const App = () => (
-      <div>
-        <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route path='/list' component={List}/>
-        </Switch>
-      </div>
-    )
+  render(){
     return (
-      <Switch>
-        <App/>
-      </Switch>
+      <Router>
+        <Switch>
+          <Route exact path = '/' component = {Home}/>
+          <Route exact path = '/postevent' component = {Home}/>
+          <Route exact path = '/findevent' component = {Home}/>
+          <Route exact path = '/login' component = {Login} />
+          <Route exact path = '/signup' component = {Home} />
+          <Route exact path = '/myprofile' component = {Home}/>
+        </Switch>
+      </Router>
     );
   }
 }
