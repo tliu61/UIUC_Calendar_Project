@@ -84,7 +84,6 @@ def main(argv):
         # Pick a random first name and last name
         x = randint(0,99)
         y = randint(0,99)
-        name email password securityquestion securityanswer
         params = urllib.parse.urlencode({ \
             'name': firstNames[x] + " " + lastNames[y], \
             'email': firstNames[x] + "@" + lastNames[y] + ".com", \
@@ -100,6 +99,7 @@ def main(argv):
         d = json.loads(data)
 
         # Store the users id
+        print(d)
         userIDs.append(str(d['data']['_id']))
         userNames.append(str(d['data']['name']))
         userEmails.append(str(d['data']['email']))
@@ -113,20 +113,20 @@ def main(argv):
 
         # Randomly generate event parameters
         user = randint(0,len(userIDs)-1)
-        userID = userIDs[assignedUser]
-        userName = userNames[assignedUser]
-        userEmail = userEmails[assignedUser]
-        date = (mktime(date.today().timetuple()) + randint(86400,864000)) * 1000
+        userID = userIDs[user]
+        userName = userNames[user]
+        userEmail = userEmails[user]
+        eventDate = (mktime(date.today().timetuple()) + randint(86400,864000)) * 1000
         introduction = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
         address = "999 Sample Address, Champaign IL 61820"
         coverpicture = "sampleURL"
         params = urllib.parse.urlencode({ \
             'title': choice(eventNames), \
-            'date': date, \
+            'date': eventDate, \
             'creator': userName, \
             'email': userEmail, \
             'address': address, \
-            'introduction': introduction \
+            'introduction': introduction, \
             'coverpicture': coverpicture \
             })
 
@@ -135,33 +135,6 @@ def main(argv):
         response = conn.getresponse()
         data = response.read()
         d = json.loads(data)
-
-        eventID = str(d['data']['_id'])
-
-        # Make sure the event is added to the pending list of the user
-        if assigned and not completed:
-            # GET the correct user
-            conn.request("GET","""/api/users?where={"_id":\""""+assignedUserID+"""\"}""")
-            response = conn.getresponse()
-            data = response.read()
-            d = json.loads(data)
-
-            # Store all the user properties
-            assignedUserName = str(d['data'][0]['name'])
-            assignedUserEmail = str(d['data'][0]['email'])
-            assignedUserDate = str(d['data'][0]['dateCreated'])
-
-            # Append the new eventID to pending events
-            assignedUserEvents = d['data'][0]['pendingEvents']
-            assignedUserEvents = [str(x).replace('[','').replace(']','').replace("'",'').replace('"','') for x in assignedUserEvents]
-            assignedUserEvents.append(eventID)
-
-            # PUT in the user
-            params = urllib.parse.urlencode({'_id': assignedUserID, 'name': assignedUserName, 'email': assignedUserEmail, 'dateCreated': assignedUserDate, 'pendingEvents': assignedUserEvents}, True)
-            conn.request("PUT", "/api/users/"+assignedUserID, params, headers)
-            response = conn.getresponse()
-            data = response.read()
-            d = json.loads(data)
 
     # Exit gracefully
     conn.close()
