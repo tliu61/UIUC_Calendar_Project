@@ -120,7 +120,7 @@ def main(argv):
         introduction = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
         address = "999 Sample Address, Champaign IL 61820"
         coverpicture = "sampleURL"
-        tags = ["Default"]
+        tags = "Default"
         params = urllib.parse.urlencode({ \
             'title': choice(eventNames), \
             'date': eventDate, \
@@ -137,7 +137,7 @@ def main(argv):
         response = conn.getresponse()
         data = response.read()
         d = json.loads(data)
-        print(d)
+        # print(d)
 
     # Exit gracefully
     conn.close()
