@@ -40,17 +40,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-// Use routes as a module (see index.js)
-app.use('/api/events',events);
-app.use('/api/users',users);
-require('./routes')(app, router);
-
 // An api endpoint that returns a short list of items
-app.get('/api/users', (req,res) => {
+app.get('/api/test', (req,res) => {
     var list = ["item1", "item2", "item3"];
     res.json(list);
     console.log('Sent list of items');
 });
+
+// Use routes as a module (see index.js)
+app.use('/api/events',events);
+app.use('/api/users',users);
+require('./routes')(app, router);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'))

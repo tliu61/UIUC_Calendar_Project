@@ -87,9 +87,10 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     var ret = await User.findOneAndUpdate({_id: req.params.id}, req.body).exec();
+    var user = await User.findById(req.params.id).exec();
     res.send({
       message: 'OK',
-      data: ret
+      data: user
     });
   } catch (e) {
     res.status(404).send({
