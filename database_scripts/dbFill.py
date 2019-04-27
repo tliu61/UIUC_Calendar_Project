@@ -99,7 +99,11 @@ def main(argv):
         d = json.loads(data)
 
         # Store the users id
+<<<<<<< HEAD
         # print(d)
+=======
+        print(d)
+>>>>>>> 018cf9efe2d0d75dcf97f31b7eada18210c644dc
         userIDs.append(str(d['data']['_id']))
         userNames.append(str(d['data']['name']))
         userEmails.append(str(d['data']['email']))
