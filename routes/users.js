@@ -28,11 +28,11 @@ function checkBody(req) {
 
 router.get('/', async (req, res) => {
   var where = eval('(' + req.query.where + ')') || {},
-  sort = eval('(' + req.query.sort + ')') || {"dateCreated": 1},
-  select = eval('(' + req.query.select + ')') || {},
-  skip = eval('(' + req.query.skip + ')') || 0,
-  limit = eval('(' + req.query.limit + ')') || 0,
-  count = eval('(' + req.query.count + ')') || false;
+    sort = eval('(' + req.query.sort + ')') || {"dateCreated": 1},
+    select = eval('(' + req.query.select + ')') || {},
+    skip = eval('(' + req.query.skip + ')') || 0,
+    limit = eval('(' + req.query.limit + ')') || 0,
+    count = eval('(' + req.query.count + ')') || false;
 
   try {
     var ret = await User.find(where, select, {skip: skip, limit: limit, sort: sort}).exec();
