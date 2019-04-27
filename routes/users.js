@@ -160,4 +160,39 @@ router.get('/:id/security/:answer', async (req, res) => {
   }
 });
 
+// Custom event addition
+router.put('/:email/create/:e_id', async (req, res) => {
+  try {
+    var user = User.findOne({ email: req.params.email });
+    user.createdevents.push(req.params.e_id);
+    var ret = await user.save();
+    res.send({
+      message: 'OK',
+      data: ret
+    });
+  } catch (e) {
+    res.status(404).send({
+      message: 'ERROR',
+      data: e
+    });
+  }
+});
+
+router.put('/:email/save/:e_id', async (req, res) => {
+  try {
+    var user = User.findOne({ email: req.params.email });
+    user.savedevents.push(req.params.e_id);
+    var ret = await user.save();
+    res.send({
+      message: 'OK',
+      data: ret
+    });
+  } catch (e) {
+    res.status(404).send({
+      message: 'ERROR',
+      data: e
+    });
+  }
+});
+
 module.exports = router;
