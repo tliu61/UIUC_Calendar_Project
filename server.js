@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 
 // Use routes as a module (see index.js)
 app.use('/api/events',events);
-
+app.use('/api/events',users);
 require('./routes')(app, router);
 
 app.get('*', (req, res) => {
