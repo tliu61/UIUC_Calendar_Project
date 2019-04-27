@@ -5,7 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     secrets = require('./config/secrets'),
     bodyParser = require('body-parser'),
-    tasks   = require('./routes/tasks'),
+    events   = require('./routes/events'),
     users   = require('./routes/users');
 
 // Create our Express application
@@ -41,6 +41,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Use routes as a module (see index.js)
+app.use('/api/events',events);
+
 require('./routes')(app, router);
 
 app.get('*', (req, res) => {
