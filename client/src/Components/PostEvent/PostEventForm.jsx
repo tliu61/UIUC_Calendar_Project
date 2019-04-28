@@ -42,10 +42,28 @@ class PostEventform extends Component {
     }
 
     updateCoverPic(event){
-        console.log(event.target.id)
-        this.setState({
-            CoverPic:event.target.id
-        })
+        if(event.target.classList.contains("active")){
+            console.log("Unselect:",event.target.value);
+            event.target.classList.remove("active");                //unselect the current button
+            this.setState({
+                CoverPic:-1
+            });
+        }else{
+            console.log("Select:",event.target.value);
+            var prevValue = this.state.CoverPic;
+            event.target.classList.add("active");
+            this.setState({
+                CoverPic:event.target.value 
+            });
+            var picButtons = document.getElementsByName("photo")
+            for (var i in picButtons){  
+                //console.log("picButton:",picButton);
+                if(picButtons[i].value == prevValue){
+                    picButtons[i].classList.remove("active");         //unselect the previous button
+                    break;
+                }
+            }  
+        }
     }
 
     updateExternalLink(event){
@@ -197,10 +215,13 @@ class PostEventform extends Component {
                     <Form.Field>
                         <label> Cover Photo (Pick One) </label>
                         <Button.Group>
-                            <Button id = "default" onClick = {this.updateCoverPic}>Default-Group</Button>
-                            <Button id = "nature" onClick = {this.updateCoverPic}>Nature</Button>
-                            <Button id = "party" onClick = {this.updateCoverPic}>Party</Button>
-                            <Button id ="school" onClick = {this.updateCoverPic}>School</Button>
+                            <Button name = "photo" value = "default" onClick = {this.updateCoverPic}>Default-Group</Button>
+                            <Button.Or />
+                            <Button name = "photo" value = "nature" onClick = {this.updateCoverPic}>Nature</Button>
+                            <Button.Or />
+                            <Button name = "photo" value = "party" onClick = {this.updateCoverPic}>Party</Button>
+                            <Button.Or />
+                            <Button name = "photo" value = "school" onClick = {this.updateCoverPic}>School</Button>
                         </Button.Group>
                     </Form.Field>
                     <Button color = 'yellow' type = 'submit' onClick = {this.postEvent}>Post</Button>
