@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/PostEventform.css'
+import axios from 'axios';
 
 
 class PostEventform extends Component {
@@ -111,13 +112,32 @@ class PostEventform extends Component {
         console.log(this.state.Introduction)
         console.log(this.state.ExternalLink)
         console.log(this.state.CoverPic)
+
+        var new_event = {
+          tags: this.state.Tags,
+          title: this.state.Title,
+          email: this.state.OrganizerContactInfo,
+          date: this.state.Date,
+          creator: this.state.Organizer,
+          address: this.state.Location,
+          introduction: this.state.Introduction,
+          coverpicture: this.state.CoverPic,
+        }
+
+        axios.post('http://localhost:4000/api/events', new_event)
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(err => {
+            console.log(err.response)
+          })
     }
-    render() { 
+    render() {
         const options = [
             {key : 1, text : 'choice 1', value : 1},
             {key : 2, text : 'choice 2', value :2 }
         ]
-        return ( 
+        return (
             <div className = "posteventform_body">
                 <h1>Posting an event</h1>
                 <Form>
@@ -134,7 +154,7 @@ class PostEventform extends Component {
                         <Input placeholder = "" onChange = {this.updateOrganizer}/>
                     </Form.Field>
                     <Form.Field>
-                        <label>Organizer Contact Information</label>
+                        <label>Organizer Email</label>
                         <Input placeholder = "" onChange = {this.updateOrganizerInfo}/>
                     </Form.Field>
                     <Form.Field required>
@@ -180,5 +200,5 @@ class PostEventform extends Component {
          );
     }
 }
- 
+
 export default PostEventform;

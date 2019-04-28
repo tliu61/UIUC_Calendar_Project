@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Signupform.css'
+import axios from 'axios';
+
 class SignupForm extends Component {
     constructor(){
         super()
@@ -38,7 +40,7 @@ class SignupForm extends Component {
     updateSecurityQuestion(event){
         console.log(event.target.id)
         this.setState({
-            securityQuestion:event.target.text
+            securityQuestion:event.target.id
         })
     }
 
@@ -93,6 +95,24 @@ class SignupForm extends Component {
         console.log(this.state.securityQuestion)
         console.log(this.state.securityQuestionAnswer)
         console.log(this.state.profilePic)
+
+        var new_user = {
+          createdevents: [],
+          savedevents: [],
+          name: this.state.firstName + " " + this.state.lastName,
+          email: this.state.email,
+          password: this.state.password,
+          securityquestion: this.state.securityQuestion,
+          securityanswer: this.state.securityQuestionAnswer
+        }
+
+        axios.post('http://localhost:4000/api/users', new_user)
+          .then(res => {
+            console.log(res.data)
+          })
+          .catch(err => {
+            console.log(err.response)
+          })
     }
 
     render() {
