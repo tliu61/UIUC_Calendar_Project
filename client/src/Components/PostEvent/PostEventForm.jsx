@@ -33,7 +33,9 @@ class PostEventform extends Component {
             Tags: [],
             Introduction: "",
             ExternalLink: "",
-            CoverPic: null
+            CoverPic: null,
+            successPosted: false,
+            posted:false
         }
 
         this.tempTags = [];
