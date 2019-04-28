@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import NavigationBar from '../NavigationBar';
 import Searchbox from '../SearchEvent/Searchbox';
-import Footer from '../Footer';
+import NavigationBar from '../Constant/NavigationBar';
+import Footer from '../Constant/Footer';
 
 class PostEvent extends Component {
     state = {  }

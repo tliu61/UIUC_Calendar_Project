@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import '../Styles/NavigationBar.css';
+import '../../Styles/NavigationBar.css';
 /// get rid of the a 
 
 class NavigationBar extends Component {

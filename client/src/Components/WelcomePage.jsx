@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import '../Styles/WelcomePage.css'
-import NavigationBar from '../Components/NavigationBar';
+
 
 class WelcomePage extends Component {
     state = {  }

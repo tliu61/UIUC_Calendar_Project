@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import NavigationBar from '../NavigationBar';
 import LoginForm from '../Users/LoginForm';
-import Footer from '../Footer';
+import NavigationBar from '../Constant/NavigationBar';
+import Footer from '../Constant/Footer';
+
 
 class Login extends Component {
     state = {  }

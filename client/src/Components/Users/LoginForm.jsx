@@ -8,6 +8,7 @@ class LoginForm extends Component {
     render() { 
         return (
             <div className = "loginform_body">
+                <h1>User Login</h1>
                 <Form className = "loginform_form">
                     <Form.Field className = "loginform_field">
                         <label>Login Email</label>
