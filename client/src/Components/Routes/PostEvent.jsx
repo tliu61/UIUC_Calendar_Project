@@ -8,7 +8,7 @@ class PostEvent extends Component {
     state = {  }
     render() { 
         return ( 
-            <div className = "postevent_body">
+            <div>
                 <NavigationBar/>
                 <PostEventform/>
                 <Footer />

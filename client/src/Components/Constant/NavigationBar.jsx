@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import '../../Styles/NavigationBar.css';
-/// get rid of the a 
+
 
 class NavigationBar extends Component {
-    state = {  }
+
+    constructor(){
+        super();
+
+        this.state = {
+            userId: -1
+        }
+
+        this.updateUser = this.updateUser.bind(this);
+    }
+
+    updateUser(){
+        console.log("user clicked")
+        this.setState({
+            userId: 0
+        })
+    }
     render() { 
         return ( 
             <div>
                 <header className = "navigationbar">
                     <nav className = "navigationbar_body">
                         <div className = "nagivationbar_logo">
-                            <Link to='/myprofile'>
+                            <Link to='/myprofile' onClick={this.updateUser}>
                                 <p>My Profile</p>
                             </Link>
                         </div>

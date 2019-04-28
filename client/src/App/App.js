@@ -5,6 +5,7 @@ import Home from '../Components/Routes/Home'
 import Login from '../Components/Routes/Login'
 import PostEvent from '../Components/Routes/PostEvent'
 import SearchEvent from '../Components/Routes/SearchEvent';
+import MyProfile from '../Components/Routes/MyProfile';
 import Signup from '../Components/Routes/Signup';
 import '../Styles/App.css'
 
@@ -18,7 +19,7 @@ class App extends Component {
           <Route exact path = '/findevent' component = {SearchEvent}/>
           <Route exact path = '/login' component = {Login} />
           <Route exact path = '/signup' component = {Signup} />
-          <Route exact path = '/myprofile' component = {Home}/>
+          <Route exact path = '/myprofile' component = {MyProfile}/>
         </Switch>
       </Router>
     );
