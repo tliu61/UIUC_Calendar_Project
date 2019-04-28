@@ -213,7 +213,7 @@ class PostEventform extends Component {
                         <Input onChange = {this.updateExternalLink}/>
                     </Form.Field>
                     <Form.Field>
-                        <label> Cover Photo (Pick One) </label>
+                        <label> Cover Photo </label>
                         <Button.Group>
                             <Button name = "photo" value = "default" onClick = {this.updateCoverPic}>Default-Group</Button>
                             <Button.Or />
