@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/PostEventform.css'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
 import ImagePicker from 'react-image-picker';
 import 'react-image-picker/dist/index.css';
@@ -54,6 +55,22 @@ class PostEventform extends Component {
       this.setState({
         CoverPic:image
       })
+    }
+
+    resetPost(event){
+        this.setState({
+            Title: "",
+            Date: "",
+            Organizer: "",
+            OrganizerContactInfo: "",
+            Location: "",
+            Tags: [],
+            Introduction: "",
+            ExternalLink: "",
+            CoverPic: -1,
+            successPosted: false,
+            posted:false
+        })
     }
 
     updateOrganizerInfo(event){
@@ -138,7 +155,7 @@ class PostEventform extends Component {
         console.log(this.state.CoverPic)
 
         var new_event = {
-          tags: this.state.Tags,
+          tags: this.tempTags,
           title: this.state.Title,
           email: this.state.OrganizerContactInfo,
           date: this.state.Date,
@@ -151,18 +168,23 @@ class PostEventform extends Component {
         axios.post('http://localhost:4000/api/events', new_event)
           .then(res => {
             console.log(res.data)
+            this.setState({
+                posted : true,
+                successPosted:true
+            })
           })
           .catch(err => {
             console.log(err.response)
+            this.setState({
+                posted: true,
+                successPosted:false
+            })
           })
     }
     render() {
-        const options = [
-            {key : 1, text : 'choice 1', value : 1},
-            {key : 2, text : 'choice 2', value :2 }
-        ]
-        return (
-            <div className = "posteventform_body">
+        if(this.state.posted === false){
+            return (
+                <div className = "posteventform_body">
                 <h1>Posting an event</h1>
                 <Form>
                     <Form.Field required>
@@ -220,6 +242,35 @@ class PostEventform extends Component {
                 </Form>
             </div>
          );
+        }else{
+            if(this.state.successPosted === true){
+                return (
+                    <div className = "posteventresponse_body">
+                        <h1> Successfully posted! </h1>
+                        <h3> Check your event in your profile</h3>
+                        <Link to ='/myprofile'>
+                            My profile
+                        </Link>
+                        <h3> Or check out other events! </h3>
+                        <Link to ='/'>
+                            Back To Home
+                        </Link>
+                    </div>
+                )
+            }else{
+                return(
+                    <div className="posteventresponse_body">
+                        <h1> Failed to Post Event</h1>
+                        <h3> Make sure that you are logged in to your account before posting event!</h3>
+                        <Link to='/login'>Login To Post</Link>
+                        <h3> If you don't have an account, sign up to post event! </h3>
+                        <Link to ='/signup'>Sign Up</Link>
+                        <h3> If you already logged in, please make sure all required fields are filled up and try again</h3>
+                        <Link to='/postevent' onClick = {this.resetPost}>Back To Post Again</Link>
+                    </div>
+                )
+            }
+        }
     }
 }
 

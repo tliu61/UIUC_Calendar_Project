@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Form, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Signupform.css'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
 
 class SignupForm extends Component {
@@ -16,7 +17,9 @@ class SignupForm extends Component {
             confirmPassword:"",
             securityQuestion:"",
             securityQuestionAnswer:"",
-            profilePic:-1
+            profilePic:-1,
+            posted:false,
+            successPosted:false
         }
 
         this.updateFirstName = this.updateFirstName.bind(this)
@@ -30,6 +33,20 @@ class SignupForm extends Component {
         this.postSignup = this.postSignup.bind(this)
     }
 
+    resetSignup(event){
+        this.setState({
+            firstName:"",
+            lastName:"",
+            email:"",
+            password:"",
+            confirmPassword:"",
+            securityQuestion:"",
+            securityQuestionAnswer:"",
+            profilePic:-1,
+            posted:false,
+            successPosted:false
+        })
+    }
     updateSecurityQuestionAnswer(event){
         console.log(event.target.value)
         this.setState({
@@ -109,13 +126,22 @@ class SignupForm extends Component {
         axios.post('http://localhost:4000/api/users', new_user)
           .then(res => {
             console.log(res.data)
+            this.setState({
+                posted:true,
+                successPosted:true
+            })
           })
           .catch(err => {
             console.log(err.response)
+            this.setState({
+                posted:true,
+                successPosted:false
+            })
           })
     }
 
     render() {
+        if(this.state.posted === false){
         return (
             <div className = "signupform_body">
                 <h1>Sign up! </h1>
@@ -165,6 +191,29 @@ class SignupForm extends Component {
                 </Form>
             </div>
          );
+        }else{
+            if(this.state.successPosted === false){
+                return(
+                    <div className = "signupform_response_body">
+                        <h1>Failed to Signup </h1>
+                        <h3>Please make sure to fill in all required information before proceed</h3>
+                        <Link to='/signup' onClick = {this.resetSignup}>
+                            Back To Signup Again.
+                        </Link>
+                    </div>
+                )
+            }else{
+                return(
+                    <div className = "signupform_response_body">
+                        <h1> Successfully Signup! </h1>
+                        <h3> Welcome Abroad!</h3>
+                        <Link to='/'>
+                            Back To Home To Explore! 
+                        </Link>
+                    </div>
+                )
+            }
+        }
     }
 }
 

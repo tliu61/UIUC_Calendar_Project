@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
+import {Link} from 'react-router-dom'
 import {Form, Input, Button, Dropdown} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 
@@ -30,7 +31,8 @@ class Searchbox extends Component {
             dateFrom:"",
             dateEnd:"",
             tags:[],
-            options: tags
+            options: tags,
+            searched: false
         }
 
         this.tempTags = []
@@ -41,6 +43,17 @@ class Searchbox extends Component {
         this.updateTags = this.updateTags.bind(this)
         this.postSearch = this.postSearch.bind(this)
         this.feelLucky = this.feelLucky.bind(this)
+    }
+
+    resetSearch(event){
+        this.setState({
+            Title:"",
+            Organizer:"",
+            DateFrom:"",
+            DateEnd:"",
+            Tags:[],
+            searched : false
+        })
     }
 
     updateOrganizer(event){
@@ -85,16 +98,28 @@ class Searchbox extends Component {
         })
     }
     postSearch(event){
+
         console.log(this.state.title)
         console.log(this.state.organizer)
         console.log(this.state.dateFrom)
         console.log(this.state.dateEnd)
         console.log(this.state.tags)
+        this.setState({
+            searched:true
+        })
+
     }
+
     feelLucky(event){
         console.log("update with top 10 events")
+        // db api connection 
+        this.setState({
+            searched : true
+        })
     }
-    render() {
+
+    render() { 
+        if(this.state.searched === false){
         return (
             <div className="searchevent_body">
                 <h1>Search Events</h1>
@@ -154,7 +179,16 @@ class Searchbox extends Component {
             </div>
 
           );
+    }else{
+        return(
+            <div className = "searchevent_body">
+                result!
+                <Link to='/findevent' onClick = {this.resetSearch}>Re-Search Events</Link>
+            </div>
+        )
     }
 }
 
+}
+ 
 export default Searchbox;

@@ -8,7 +8,7 @@ class Footer extends Component {
         return (
             <div className = "footer_body">
                 <footer className = "footer_footer">
-                    <p className="footer_text">Made By MAGIC Contact us: magic@gmail.com</p>
+                    <p className="footer_text">Made By MAGICS Contact us: magics@gmail.com</p>
                 </footer>
             </div>
           );
