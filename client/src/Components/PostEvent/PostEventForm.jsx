@@ -3,6 +3,20 @@ import {Form, Input, Button} from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/PostEventform.css'
 import axios from 'axios';
+import ImagePicker from 'react-image-picker';
+import 'react-image-picker/dist/index.css';
+
+//import images from local
+import img1 from './../../images/Default-Group.jpg';
+import img2 from './../../images/Nature.jpg';
+import img3 from './../../images/Party.jpg';
+import img4 from './../../images/School.JPG';
+import img5 from './../../images/Academics.jpg';
+import img6 from './../../images/Chill.jpg';
+import img7 from './../../images/Sport.jpg';
+import img8 from './../../images/Graduation.jpg';
+
+const imageList = [img1, img2, img3, img4, img5, img6, img7, img8];
 
 
 class PostEventform extends Component {
@@ -18,7 +32,7 @@ class PostEventform extends Component {
             Tags: [],
             Introduction: "",
             ExternalLink: "",
-            CoverPic: -1
+            CoverPic: null
         }
 
         this.tempTags = [];
@@ -30,8 +44,16 @@ class PostEventform extends Component {
         this.updateTags = this.updateTags.bind(this);
         this.updateIntroduction = this.updateIntroduction.bind(this);
         this.updateExternalLink = this.updateExternalLink.bind(this);
-        this.updateCoverPic = this.updateCoverPic.bind(this);
         this.postEvent = this.postEvent.bind(this);
+
+        this.onPick = this.onPick.bind(this);
+    }
+
+    onPick(image) {
+      console.log(image);
+      this.setState({
+        CoverPic:image
+      })
     }
 
     updateOrganizerInfo(event){
@@ -39,31 +61,6 @@ class PostEventform extends Component {
         this.setState({
             OrganizerContactInfo:event.target.value
         })
-    }
-
-    updateCoverPic(event){
-        if(event.target.classList.contains("active")){
-            console.log("Unselect:",event.target.value);
-            event.target.classList.remove("active");                //unselect the current button
-            this.setState({
-                CoverPic:-1
-            });
-        }else{
-            console.log("Select:",event.target.value);
-            var prevValue = this.state.CoverPic;
-            event.target.classList.add("active");
-            this.setState({
-                CoverPic:event.target.value 
-            });
-            var picButtons = document.getElementsByName("photo")
-            for (var i in picButtons){  
-                //console.log("picButton:",picButton);
-                if(picButtons[i].value == prevValue){
-                    picButtons[i].classList.remove("active");         //unselect the previous button
-                    break;
-                }
-            }  
-        }
     }
 
     updateExternalLink(event){
@@ -214,15 +211,10 @@ class PostEventform extends Component {
                     </Form.Field>
                     <Form.Field>
                         <label> Cover Photo </label>
-                        <Button.Group>
-                            <Button name = "photo" value = "default" onClick = {this.updateCoverPic}>Default-Group</Button>
-                            <Button.Or />
-                            <Button name = "photo" value = "nature" onClick = {this.updateCoverPic}>Nature</Button>
-                            <Button.Or />
-                            <Button name = "photo" value = "party" onClick = {this.updateCoverPic}>Party</Button>
-                            <Button.Or />
-                            <Button name = "photo" value = "school" onClick = {this.updateCoverPic}>School</Button>
-                        </Button.Group>
+                        <ImagePicker
+                          images={imageList.map((image, i) => ({src: image, value: i}))}
+                          onPick={this.onPick}
+                        />
                     </Form.Field>
                     <Button color = 'yellow' type = 'submit' onClick = {this.postEvent}>Post</Button>
                 </Form>
