@@ -63,9 +63,18 @@ class PostEventform extends Component {
     }
 
     updateTags(event){
-        console.log(event.target.id)
-        this.tempTags.push(event.target.id)
-        console.log(this.tempTags)
+        if(!event.target.classList.contains("active")){//check whether active button
+            console.log("add:",event.target.value)
+            this.tempTags.push(event.target.value)
+            console.log(this.tempTags)
+            event.target.classList.add("active");
+        }else{
+            console.log("remove:",event.target.value)
+            this.tempTags.splice(this.tempTags.indexOf(event.target.value),1);
+            console.log(this.tempTags)
+            event.target.classList.remove("active");
+        }
+
     }
 
     updateLocation(event){
@@ -164,17 +173,17 @@ class PostEventform extends Component {
                     <Form.Field required>
                         <label> Tags (Pick Multiple)</label>
                         <Button.Group>
-                            <Button id = "academic" onClick = {this.updateTags}>Academic</Button>
-                            <Button id = "chill" onClick = {this.updateTags}>Chill</Button>
-                            <Button id = "sport" onClick = {this.updateTags}>Sport</Button>
-                            <Button id = "movie" onClick = {this.updateTags}> Movie</Button>
-                            <Button id = "food" onClick = {this.updateTags}>Food</Button>
-                            <Button id = "outside" onClick = {this.updateTags}>Outside</Button>
-                            <Button id = "meetup" onClick = {this.updateTags}>Meetup</Button>
-                            <Button id = "adventure" onClick = {this.updateTags}>Adventure</Button>
-                            <Button id = "thought" onClick = {this.updateTags}>Thought</Button>
-                            <Button id = "reading" onClick = {this.updateTags}>Reading</Button>
-                            <Button id = "party" onClick = {this.updateTags}>Party</Button>
+                            <Button value = "academic" onClick = {this.updateTags} >Academic</Button>
+                            <Button value = "chill" onClick = {this.updateTags}>Chill</Button>
+                            <Button value= "sport" onClick = {this.updateTags}>Sport</Button>
+                            <Button vakue = "movie" onClick = {this.updateTags}> Movie</Button>
+                            <Button value = "food" onClick = {this.updateTags}>Food</Button>
+                            <Button value = "outside" onClick = {this.updateTags}>Outside</Button>
+                            <Button value = "meetup" onClick = {this.updateTags}>Meetup</Button>
+                            <Button value = "adventure" onClick = {this.updateTags}>Adventure</Button>
+                            <Button value = "thought" onClick = {this.updateTags}>Thought</Button>
+                            <Button value = "reading" onClick = {this.updateTags}>Reading</Button>
+                            <Button value = "party" onClick = {this.updateTags}>Party</Button>
                         </Button.Group>
                     </Form.Field>
                     <Form.Field required>
