@@ -50,7 +50,7 @@ class LoginForm extends Component {
         console.log(this.state.password)
         console.log(this.state.human)
     }
-    render() { 
+    render() {
         return (
             <div className = "loginform_body">
                 <h1>User Login</h1>
@@ -64,7 +64,7 @@ class LoginForm extends Component {
                         <Input placeholder = 'password' onChange = {this.updatePassword}/>
                     </Form.Field>
                     <Form.Field className = "loginform_field">
-                        <Checkbox label = 'verify I am a human' onChange = {this.updateHuman}/>
+                        <Checkbox label = 'Verify I am human' onChange = {this.updateHuman}/>
                     </Form.Field>
                     <Button className="loginform_btn" type = 'submit' color = 'yellow' onClick = {this.postLogin}> Login </Button>
                 </Form>
@@ -72,6 +72,6 @@ class LoginForm extends Component {
         );
     }
 }
- 
-//for login btn pressed, it should take the input and verfiy with the database 
+
+//for login btn pressed, it should take the input and verfiy with the database
 export default LoginForm;

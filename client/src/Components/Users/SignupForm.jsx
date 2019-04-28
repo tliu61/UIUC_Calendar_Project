@@ -26,7 +26,6 @@ class SignupForm extends Component {
         this.updateSecurityQuestionAnswer = this.updateSecurityQuestionAnswer.bind(this)
         this.updateProfilePic  = this.updateProfilePic.bind(this)
         this.postSignup = this.postSignup.bind(this)
-
     }
 
     updateSecurityQuestionAnswer(event){
@@ -96,8 +95,8 @@ class SignupForm extends Component {
         console.log(this.state.profilePic)
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div className = "signupform_body">
                 <h1>Sign up! </h1>
                 <Form>
@@ -124,10 +123,10 @@ class SignupForm extends Component {
                     <Form.Field required>
                         <label>Security Question</label>
                             <Button.Group>
-                                <Button id  = "birthplace" text = "where is birth place?" onClick = {this.updateSecurityQuestion}>"where is birth place?"</Button>
-                                <Button id  = "favcolor" text = "what is your fav color?" onClick = {this.updateSecurityQuestion}>"what is your fav color?"</Button>
-                                <Button id  = "petname" text = "what is the name of your first pet" onClick = {this.updateSecurityQuestion}>"what is the name of your first pet"</Button>
-                                <Button id  = "vacationspot" text = "where is your dream vacation place?" onClick = {this.updateSecurityQuestion}>"where is your dream vacation place?"</Button>
+                                <Button id  = "birthplace" text = "What city were you born in?" onClick = {this.updateSecurityQuestion}>"What city were you born in?"</Button>
+                                <Button id  = "favcolor" text = "What is your favorite color?" onClick = {this.updateSecurityQuestion}>"What is your favorite color?"</Button>
+                                <Button id  = "petname" text = "What is the name of your first pet?" onClick = {this.updateSecurityQuestion}>"What is the name of your first pet?"</Button>
+                                <Button id  = "vacationspot" text = "Where is your dream vacation located?" onClick = {this.updateSecurityQuestion}>"Where is your dream vacation located?"</Button>
                             </Button.Group>
                     </Form.Field>
                     <Form.Field required>
@@ -148,5 +147,5 @@ class SignupForm extends Component {
          );
     }
 }
- 
+
 export default SignupForm;
