@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
-import {Form, Input, Button} from 'semantic-ui-react';
+import {Form, Input, Button, Dropdown} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
+
+const tags = [
+  { key: 'academic', text: 'Academic', value: 'academic' },
+  { key: 'chill', text: 'Chill', value: 'chill' },
+  { key: 'sport', text: 'Sport', value: 'sport' },
+  { key: 'movie', text: 'Movie', value: 'movie' },
+  { key: 'food', text: 'Food', value: 'food' },
+  { key: 'outside', text: 'Outside', value: 'outside' },
+  { key: 'meetup', text: 'Meetup', value: 'meetup' },
+  { key: 'adventure', text: 'Adventure', value: 'adventure' },
+  { key: 'thought', text: 'Thought', value: 'thought' },
+  { key: 'reading', text: 'Reading', value: 'reading' },
+  { key: 'party', text: 'Party', value: 'party' }
+]
 
 class Searchbox extends Component {
     constructor(){
         super();
 
         this.state = {
-            Title:"",
-            Organizer:"",
-            DateFrom:"",
-            DateEnd:"",
-            Tags:[]
+            title:"",
+            organizer:"",
+            dateFrom:"",
+            dateEnd:"",
+            tags:[],
+            options: tags
         }
 
         this.tempTags = []
@@ -32,36 +49,47 @@ class Searchbox extends Component {
             Organizer:event.target.value
         })
     }
-    updateTags(event){
-        console.log(event.target.id)
-        this.tempTags.push(event.target.id)
+
+    handleAddition(event, {v}) {
+      console.log(event);
+      console.log(v);
+      if (v !== undefined) {
+        console.log(v);
+        this.setState({
+          options: [{text: v, value: v.toLowerCase(), key: v.toLowerCase()}, ...this.state.options]
+        })
+      }
+    }
+    updateTags(event, {value}) {
+        console.log(value);
+        this.setState({ tags: value })
     }
 
     updateDateFrom(event){
         console.log(event)
         this.setState({
-            DateFrom:event
+            dateFrom:event
         })
     }
     updateDateEnd(event){
         console.log(event)
         this.setState({
-            DateEnd:event
+            dateEnd:event
         })
     }
 
     updateTitle(event){
         console.log(event.target.value)
         this.setState({
-            Title:event.target.value
+            title:event.target.value
         })
     }
     postSearch(event){
-        console.log(this.state.Title)
-        console.log(this.state.Organizer)
-        console.log(this.state.DateFrom)
-        console.log(this.state.DateEnd)
-        console.log(this.tempTags)
+        console.log(this.state.title)
+        console.log(this.state.organizer)
+        console.log(this.state.dateFrom)
+        console.log(this.state.dateEnd)
+        console.log(this.state.tags)
     }
     feelLucky(event){
         console.log("update with top 10 events")
@@ -81,46 +109,44 @@ class Searchbox extends Component {
                     </Form.Field>
                     <Form.Field>
                         <label>Events Date Range</label>
-                            <Form.Field>
-                                <label>From:</label>
-                                  <DatePicker
-                                    selected={this.state.DateFrom}
-                                    onChange={this.updateDateFrom}
-                                    showTimeSelect
-                                    timeFormat="HH:mm"
-                                    timeIntervals={30}
-                                    dateFormat="MMMM d, yyyy h:mm aa"
-                                    timeCaption="time"
-                                />
-                            </Form.Field>
-                            <Form.Field>
-                                <label>To:</label>
-                                  <DatePicker
-                                    selected={this.state.DateEnd}
-                                    onChange={this.updateDateEnd}
-                                    showTimeSelect
-                                    timeFormat="HH:mm"
-                                    timeIntervals={30}
-                                    dateFormat="MMMM d, yyyy h:mm aa"
-                                    timeCaption="time"
-                                />
-                            </Form.Field>
+                            <div className="two fields">
+                                <Form.Field>
+                                    <label>From:</label>
+                                      <DatePicker
+                                        selected={this.state.dateFrom}
+                                        onChange={this.updateDateFrom}
+                                        inline
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={30}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        timeCaption="time"
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <label>To:</label>
+                                      <DatePicker
+                                        selected={this.state.dateEnd}
+                                        onChange={this.updateDateEnd}
+                                        inline
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={30}
+                                        dateFormat="MMMM d, yyyy h:mm aa"
+                                        timeCaption="time"
+                                    />
+                                </Form.Field>
+                            </div>
                     </Form.Field>
                     <Form.Field>
                         <label>Event tags</label>
-                        <Button.Group>
-                            <Button id = "academic" onClick = {this.updateTags}>Academic</Button>
-                            <Button id = "chill" onClick = {this.updateTags}>Chill</Button>
-                            <Button id = "sport" onClick = {this.updateTags}>Sport</Button>
-                            <Button id = "movie" onClick = {this.updateTags}> Movie</Button>
-                            <Button id = "food" onClick = {this.updateTags}>Food</Button>
-                            <Button id = "outside" onClick = {this.updateTags}>Outside</Button>
-                            <Button id = "meetup" onClick = {this.updateTags}>Meetup</Button>
-                            <Button id = "adventure" onClick = {this.updateTags}>Adventure</Button>
-                            <Button id = "thought" onClick = {this.updateTags}>Thought</Button>
-                            <Button id = "reading" onClick = {this.updateTags}>Reading</Button>
-                            <Button id = "party" onClick = {this.updateTags}>Party</Button>
-                        </Button.Group>
+                        <Dropdown placeholder='Tags'
+                          search fluid multiple selection
+                          allowAdditions additionLabel='Custom Tag: '
+                          options={this.state.options}
+                          value={this.state.tags}
+                          onAddItem={this.handleAddition}
+                          onChange={this.updateTags} />
                     </Form.Field>
                     <Button color = 'yellow' type = 'submit' onClick = {this.postSearch}>Search</Button>
                     <Button color = 'yellow' type = 'submit' onClick = {this.feelLucky}>I'm Feeling Lucky</Button>

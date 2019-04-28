@@ -1,5 +1,6 @@
 .navigationbar{
     position: fixed;
+    z-index: 999;
     top:0;
     left:0;
     width:100%;
@@ -46,5 +47,3 @@
 .navigationbar_items p:active{
     color:#fa923f;
 }
-
-
