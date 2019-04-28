@@ -28,7 +28,7 @@ function checkBody(req) {
 
 router.get('/', async (req, res) => {
   var where = eval('(' + req.query.where + ')') || {},
-    sort = eval('(' + req.query.sort + ')') || {"dateCreated": 1},
+    sort = eval('(' + req.query.sort + ')') || {"_id": 1},
     select = eval('(' + req.query.select + ')') || {},
     skip = eval('(' + req.query.skip + ')') || 0,
     limit = eval('(' + req.query.limit + ')') || 0,
@@ -127,7 +127,7 @@ router.get('/:id/password/:pass', async (req, res) => {
     } else {
       res.status(401).send({
         message: 'Incorrect Password',
-      }); 
+      });
     }
   } catch (e) {
     res.status(404).send({

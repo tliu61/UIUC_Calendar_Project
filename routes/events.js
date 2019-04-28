@@ -28,29 +28,27 @@ router.get('/:id',function(req,res){
 
 })
 
-router.get('',function(req,res){
+router.get('/', async (req,res) => {
   var where = eval('(' + req.query.where + ')') || {},
-    sort = eval('(' + req.query.sort + ')') || {"dateCreated": 1},
-    select = eval('(' + req.query.select + ')') || {},
-    skip = eval('(' + req.query.skip + ')') || 0,
-    limit = eval('(' + req.query.limit + ')') || 0,
-    count = eval('(' + req.query.count + ')') || false;
+      sort = eval('(' + req.query.sort + ')') || {"date": 1},
+      select = eval('(' + req.query.select + ')') || {},
+      skip = eval('(' + req.query.skip + ')') || 0,
+      limit = eval('(' + req.query.limit + ')') || 0,
+      count = eval('(' + req.query.count + ')') || false;
 
-	Event.find(where, select, {skip: skip, limit: limit, sort: sort}, function(err, events) {
-		if(err){
-			var json = JSON.stringify({
-				"message": "Cannot find the events",
-				"data": events
-			});
-			res.status(HttpStatus.NOT_FOUND).send(json);
-			return;
-		}
-		var json = JSON.stringify({
-			"message": "OK",
-			"data": events
-		});
-		res.status(HttpStatus.OK).send(json);
-  });
+  console.log(where);
+  try {
+    var ret = await Event.find(where, select, {skip: skip, limit: limit, sort: sort}).exec();
+    res.send({
+      message: 'OK',
+      data: ret
+    });
+  } catch (e) {
+    res.status(404).send({
+      message: e,
+      data: []
+    });
+  }
 })
 
 router.post('',function(req,res){

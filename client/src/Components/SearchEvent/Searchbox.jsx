@@ -4,6 +4,7 @@ import '../../Styles/Searchbox.css';
 import {Link} from 'react-router-dom'
 import {Form, Input, Button, Dropdown} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -25,13 +26,15 @@ class Searchbox extends Component {
     constructor(){
         super();
 
+        var now = new Date();
+
         this.state = {
+            options: tags,
             title:"",
             organizer:"",
-            dateFrom:"",
-            dateEnd:"",
+            dateFrom: now,
+            dateEnd: new Date(now.getTime() + 608800000), // Default to a week from today
             tags:[],
-            options: tags,
             searched: false
         }
 
@@ -46,12 +49,13 @@ class Searchbox extends Component {
     }
 
     resetSearch(event){
+        var now = new Date();
         this.setState({
-            Title:"",
-            Organizer:"",
-            DateFrom:"",
-            DateEnd:"",
-            Tags:[],
+            title:"",
+            organizer:"",
+            dateFrom: now,
+            dateEnd: new Date(now.getTime() + 608800000),
+            tags:[],
             searched : false
         })
     }
@@ -59,7 +63,7 @@ class Searchbox extends Component {
     updateOrganizer(event){
         console.log(event.target.value)
         this.setState({
-            Organizer:event.target.value
+            organizer:event.target.value
         })
     }
 
@@ -97,28 +101,41 @@ class Searchbox extends Component {
             title:event.target.value
         })
     }
-    postSearch(event){
-
-        console.log(this.state.title)
-        console.log(this.state.organizer)
-        console.log(this.state.dateFrom)
-        console.log(this.state.dateEnd)
-        console.log(this.state.tags)
-        this.setState({
-            searched:true
+    postSearch(event, child, limit){
+        var where = {
+            "date": { "$gt": this.state.dateFrom, "$lt": this.state.dateEnd },
+        };
+        if (this.state.title) {
+          where["title"] = { "$regex": '.*' + this.state.title + '.*', "$options": 'si'}
+        }
+        if (this.state.organizer) {
+          where["creator"] = { "$regex": '.*' + this.state.organizer + '.*', "$options": 'si'}
+        }
+        if (this.state.tags.length) {
+          where["tags"] = { "$all": this.state.tags }
+        }
+        console.log(JSON.stringify(where));
+        console.log(limit);
+        axios.get('http://localhost:4000/api/events', {
+          params: {
+            where: JSON.stringify(where),
+            limit: limit ? limit : 0
+          }
         })
-
+          .then(res => this.setState({
+            events: res.data.data,
+            searched: true
+          }, () => console.log(this.state.events)))
+          .catch(err => {
+            console.log(err.response)
+          })
     }
 
-    feelLucky(event){
-        console.log("update with top 10 events")
-        // db api connection 
-        this.setState({
-            searched : true
-        })
+    feelLucky(event, child){
+        this.postSearch(event, child, 10);
     }
 
-    render() { 
+    render() {
         if(this.state.searched === false){
         return (
             <div className="searchevent_body">
@@ -180,9 +197,30 @@ class Searchbox extends Component {
 
           );
     }else{
+        var eventComponents = this.state.events.map((e) => {
+          return (
+          <tr className="event" key={e._id}>
+            <td className="event_title">{e.title}</td>
+            <td className="event_creator">{e.creator}</td>
+            <td className="event_date">{e.date}</td>
+            <td className="event_address">{e.address}</td>
+          </tr>);
+        });
         return(
             <div className = "searchevent_body">
-                result!
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Creator</th>
+                      <th>Date</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {eventComponents}
+                  </tbody>
+                </table>
                 <Link to='/findevent' onClick = {this.resetSearch}>Re-Search Events</Link>
             </div>
         )
@@ -190,5 +228,5 @@ class Searchbox extends Component {
 }
 
 }
- 
+
 export default Searchbox;
