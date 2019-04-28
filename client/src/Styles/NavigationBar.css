@@ -37,13 +37,13 @@
 
 
 
-.navigationbar_items a{
+.navigationbar_items p{
     color: white;
     text-decoration: none;
 }
 
-.navigationbar_items a:hover,
-.navigationbar_items a:active{
+.navigationbar_items p:hover,
+.navigationbar_items p:active{
     color:#fa923f;
 }
 

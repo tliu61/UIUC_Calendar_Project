@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import "../Styles/Footer.css"
+import 'semantic-ui-css/semantic.min.css';
+import '../Styles/PostEventform.css'
 
 class Footer extends Component {
     state = {  }

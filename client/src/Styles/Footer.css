@@ -11,9 +11,10 @@
 .footer_footer{
     text-align: center;
     text-decoration: none;
-    transform: translateY(-50%);
 }
 
 .footer_text{
     text-align: center;
+    font-size: 1rem;
+    bottom: 0;
 }

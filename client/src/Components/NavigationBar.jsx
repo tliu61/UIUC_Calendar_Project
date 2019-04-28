@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import '../Styles/NavigationBar.css';
-
+/// get rid of the a 
 
 class NavigationBar extends Component {
     state = {  }
@@ -12,7 +12,7 @@ class NavigationBar extends Component {
                     <nav className = "navigationbar_body">
                         <div className = "nagivationbar_logo">
                             <Link to='/myprofile'>
-                                <a href = "/">My Profile </a>
+                                <p>My Profile</p>
                             </Link>
                         </div>
                         <div className= " nagivationbar_spacer"></div>
@@ -20,22 +20,22 @@ class NavigationBar extends Component {
                             <ul>
                                 <li>
                                     <Link to='/postevent'>
-                                        <a href = "/"> Posting Events </a>
+                                        <p>Posting Events</p>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to='/findevent'>
-                                        <a href = "/"> Finding Events </a>
+                                        <p>Searching Events</p>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to='/login'>
-                                        <a href = "/"> Login</a>
+                                        <p>Login </p>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link to='/signup'>
-                                        <a href = "/">Signup</a>
+                                        <p>Signup</p>
                                     </Link>
                                 </li>
                             </ul>
