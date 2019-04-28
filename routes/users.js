@@ -127,7 +127,7 @@ router.get('/:id/password/:pass', async (req, res) => {
     } else {
       res.status(401).send({
         message: 'Incorrect Password',
-      });
+      }); 
     }
   } catch (e) {
     res.status(404).send({

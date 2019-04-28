@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
 import {Form, Input, Button} from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
 
 class Searchbox extends Component {
     constructor(){
@@ -37,15 +38,15 @@ class Searchbox extends Component {
     }
 
     updateDateFrom(event){
-        console.log(event.target.value)
+        console.log(event)
         this.setState({
-            DateFrom:event.target.value
+            DateFrom:event
         })
     }
     updateDateEnd(event){
-        console.log(event.target.value)
+        console.log(event)
         this.setState({
-            DateEnd:event.target.value
+            DateEnd:event
         })
     }
 
@@ -65,7 +66,7 @@ class Searchbox extends Component {
     feelLucky(event){
         console.log("update with top 10 events")
     }
-    render() { 
+    render() {
         return (
             <div className="searchevent_body">
                 <h1>Search Events</h1>
@@ -82,11 +83,27 @@ class Searchbox extends Component {
                         <label>Events Date Range</label>
                             <Form.Field>
                                 <label>From:</label>
-                                <Input placeholder = "yyyy-MM-dd" onChange = {this.updateDateFrom}/>
+                                  <DatePicker
+                                    selected={this.state.DateFrom}
+                                    onChange={this.updateDateFrom}
+                                    showTimeSelect
+                                    timeFormat="HH:mm"
+                                    timeIntervals={30}
+                                    dateFormat="MMMM d, yyyy h:mm aa"
+                                    timeCaption="time"
+                                />
                             </Form.Field>
                             <Form.Field>
                                 <label>To:</label>
-                                <Input placeholder = "yyyy-MM-dd" onChange = {this.updateDateEnd}/>
+                                  <DatePicker
+                                    selected={this.state.DateEnd}
+                                    onChange={this.updateDateEnd}
+                                    showTimeSelect
+                                    timeFormat="HH:mm"
+                                    timeIntervals={30}
+                                    dateFormat="MMMM d, yyyy h:mm aa"
+                                    timeCaption="time"
+                                />
                             </Form.Field>
                     </Form.Field>
                     <Form.Field>
@@ -113,5 +130,5 @@ class Searchbox extends Component {
           );
     }
 }
- 
+
 export default Searchbox;

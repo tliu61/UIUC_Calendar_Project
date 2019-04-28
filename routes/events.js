@@ -29,10 +29,14 @@ router.get('/:id',function(req,res){
 })
 
 router.get('',function(req,res){
-	//var where = req.query.where;
-	//where = (typeof where == 'undefined') ? {}:JSON.parse(where);
+  var where = eval('(' + req.query.where + ')') || {},
+    sort = eval('(' + req.query.sort + ')') || {"dateCreated": 1},
+    select = eval('(' + req.query.select + ')') || {},
+    skip = eval('(' + req.query.skip + ')') || 0,
+    limit = eval('(' + req.query.limit + ')') || 0,
+    count = eval('(' + req.query.count + ')') || false;
 
-	Event.find({}, function(err, events) {
+	Event.find(where, select, {skip: skip, limit: limit, sort: sort}, function(err, events) {
 		if(err){
 			var json = JSON.stringify({
 				"message": "Cannot find the events",
@@ -83,9 +87,9 @@ router.delete('/:id',function(req,res){
 		}
 		var json = JSON.stringify({
 			"message": "OK",
-			"data": "Delete task with id " + req.params.id 
+			"data": "Delete task with id " + req.params.id
 		});
-		res.status(HttpStatus.OK).send(json);		
+		res.status(HttpStatus.OK).send(json);
 	})
 	//console.log("User:=",JSON.stringify(result));
 })
@@ -111,7 +115,7 @@ router.put("/:id",function(req,res){
 			"message": "OK",
 			"data": "Update success"
 		});
-		res.status(HttpStatus.OK).send(json);		
+		res.status(HttpStatus.OK).send(json);
 	})
 
 })
