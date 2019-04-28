@@ -26,15 +26,24 @@ class NavigationBar extends Component {
             <div>
                 <header className = "navigationbar">
                     <nav className = "navigationbar_body">
-                        <div className = "nagivationbar_logo">
-                            <Link to='/myprofile' onClick={this.updateUser}>
-                                <p>My Profile</p>
-                            </Link>
+                        <div className = "navigationbar_items">
+                            <ul>
+                                <li>
+                                    <Link to='/'>
+                                        <p> Home</p>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to='/myprofile' onClick={this.updateUser}>
+                                        <p>My Profile</p>
+                                    </Link>
+                                </li>
+                            </ul>
                         </div>
                         <div className= " nagivationbar_spacer"></div>
                         <div className = "navigationbar_items">
                             <ul>
-                                <li>
+                                <li>   
                                     <Link to='/postevent'>
                                         <p>Posting Events</p>
                                     </Link>
