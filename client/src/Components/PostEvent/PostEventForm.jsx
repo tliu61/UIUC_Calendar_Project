@@ -176,14 +176,11 @@ class PostEventform extends Component {
         console.log("Custom Tags:",this.state.CustomTags);
         //console.log("Temp Custom Tags:",this.tempCustomTags);
         for (var i in this.state.CustomTags){
-            let customTag = this.state.CustomTags[i];
-            console.log(i,":",customTag);
             group.push(
-                <div className="ui right labeled icon input" key={customTag} style={{display:'inline'}}>
-                    <i className="minus square link icon" value = {customTag} onClick = {this.deleteCustomTag}></i>
-                    <input type="text" value={customTag} onChange = {this.updateCustomTag}/>
+                <div className="ui right labeled icon input"  style={{display:'inline'}}>
+                    <i className="minus square link icon" value = {this.state.CustomTags[i]} onClick = {this.deleteCustomTag}></i>
+                    <input type="text" value={this.state.CustomTags[i]} onChange = {this.updateCustomTag}/>
                 </div>
-
             );
         }
 
