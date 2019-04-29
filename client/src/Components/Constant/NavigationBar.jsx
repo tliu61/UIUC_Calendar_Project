@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import '../../Styles/NavigationBar.css';
+import { Icon } from 'semantic-ui-react';
 
 
 class NavigationBar extends Component {
@@ -21,8 +22,8 @@ class NavigationBar extends Component {
             userId: 0
         })
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
                 <header className = "navigationbar">
                     <nav className = "navigationbar_body">
@@ -37,13 +38,18 @@ class NavigationBar extends Component {
                                     <Link to='/myprofile' onClick={this.updateUser}>
                                         <p>My Profile</p>
                                     </Link>
+
                                 </li>
+                                <Icon.Group size='small'>
+                                  <Icon size='big' name='circle outline' color='orange'/>
+                                  <Icon name='user' color='orange'/>
+                                </Icon.Group>
                             </ul>
                         </div>
                         <div className= " nagivationbar_spacer"></div>
                         <div className = "navigationbar_items">
                             <ul>
-                                <li>   
+                                <li>
                                     <Link to='/postevent'>
                                         <p>Posting Events</p>
                                     </Link>
@@ -71,5 +77,5 @@ class NavigationBar extends Component {
          );
     }
 }
- 
+
 export default NavigationBar;

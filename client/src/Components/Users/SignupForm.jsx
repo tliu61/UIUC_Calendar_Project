@@ -20,7 +20,7 @@ class SignupForm extends Component {
             profilePic:-1,
             posted:false,
             successPosted:false
-        }
+        };
 
         this.updateFirstName = this.updateFirstName.bind(this)
         this.updateLastName = this.updateLastName.bind(this)
@@ -55,10 +55,22 @@ class SignupForm extends Component {
     }
 
     updateSecurityQuestion(event){
-        console.log(event.target.id)
-        this.setState({
-            securityQuestion:event.target.id
-        })
+        if(!event.target.classList.contains("active")){
+            console.log("Select:",event.target.value);
+            var prevValue = this.state.securityQuestion;
+            event.target.classList.add("active");
+            this.setState({securityQuestion: event.target.value}, function () {
+                console.log("securityQuestion updated");
+            });
+            var questionButtons = document.getElementById("questions").childNodes;
+            for (var i in questionButtons){
+                if(questionButtons[i].value == prevValue){
+                    questionButtons[i].classList.remove("active");         //unselect the previous button
+                    console.log("removed: ", prevValue);
+                    break;
+                }
+            }
+        }
     }
 
     updateConfirmPassword(event){
@@ -168,11 +180,11 @@ class SignupForm extends Component {
                     </Form.Field>
                     <Form.Field required>
                         <label>Security Question</label>
-                            <Button.Group>
-                                <Button id  = "birthplace" text = "What city were you born in?" onClick = {this.updateSecurityQuestion}>"What city were you born in?"</Button>
-                                <Button id  = "favcolor" text = "What is your favorite color?" onClick = {this.updateSecurityQuestion}>"What is your favorite color?"</Button>
-                                <Button id  = "petname" text = "What is the name of your first pet?" onClick = {this.updateSecurityQuestion}>"What is the name of your first pet?"</Button>
-                                <Button id  = "vacationspot" text = "Where is your dream vacation located?" onClick = {this.updateSecurityQuestion}>"Where is your dream vacation located?"</Button>
+                            <Button.Group id = "questions">
+                                <Button id  = "birthplace" value = "What city were you born in?" onClick = {this.updateSecurityQuestion}>"What city were you born in?"</Button>
+                                <Button id  = "favcolor" value = "What is your favorite color?" onClick = {this.updateSecurityQuestion}>"What is your favorite color?"</Button>
+                                <Button id  = "petname" value = "What is the name of your first pet?" onClick = {this.updateSecurityQuestion}>"What is the name of your first pet?"</Button>
+                                <Button id  = "vacationspot" value = "Where is your dream vacation located?" onClick = {this.updateSecurityQuestion}>"Where is your dream vacation located?"</Button>
                             </Button.Group>
                     </Form.Field>
                     <Form.Field required>
@@ -182,9 +194,9 @@ class SignupForm extends Component {
                     <Form.Field>
                         <label> Profile Pic</label>
                         <Button.Group>
-                            <Button id = "female" text = "Female" onClick = {this.updateProfilePic}>Female</Button>
-                            <Button id="male" text = "Male" onClick = {this.updateProfilePic}>Male</Button>
-                            <Button id = "neutural" text = "Neutural" onClick = {this.updateProfilePic}>Neutural</Button>
+                            <Button id = "female" value = "Female" onClick = {this.updateProfilePic}>Female</Button>
+                            <Button id="male" value = "Male" onClick = {this.updateProfilePic}>Male</Button>
+                            <Button id = "neutural" value = "Neutural" onClick = {this.updateProfilePic}>Neutural</Button>
                         </Button.Group>
                     </Form.Field>
                     <Button type = 'submit' color = 'yellow' onClick = {this.postSignup}> Create</Button>
@@ -208,7 +220,7 @@ class SignupForm extends Component {
                         <h1> Successfully Signup! </h1>
                         <h3> Welcome Abroad!</h3>
                         <Link to='/'>
-                            Back To Home To Explore! 
+                            Back To Home To Explore!
                         </Link>
                     </div>
                 )
