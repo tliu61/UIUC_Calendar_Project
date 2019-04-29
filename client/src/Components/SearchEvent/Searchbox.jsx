@@ -8,7 +8,7 @@ import axios from 'axios';
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const tags = [
+const options = [
   { key: 'academic', text: 'Academic', value: 'academic' },
   { key: 'chill', text: 'Chill', value: 'chill' },
   { key: 'sport', text: 'Sport', value: 'sport' },
@@ -29,12 +29,12 @@ class Searchbox extends Component {
         var now = new Date();
 
         this.state = {
-            options: tags,
+            options: options,
             title:"",
             organizer:"",
             dateFrom: now,
             dateEnd: new Date(now.getTime() + 608800000), // Default to a week from today
-            tags:[],
+            currentValues:[],
             searched: false
         }
 
@@ -44,6 +44,7 @@ class Searchbox extends Component {
         this.updateDateFrom = this.updateDateFrom.bind(this)
         this.updateDateEnd = this.updateDateEnd.bind(this)
         this.updateTags = this.updateTags.bind(this)
+        this.handleAddition = this.handleAddition.bind(this)
         this.postSearch = this.postSearch.bind(this)
         this.feelLucky = this.feelLucky.bind(this)
     }
@@ -61,25 +62,25 @@ class Searchbox extends Component {
     }
 
     updateOrganizer(event){
-        console.log(event.target.value)
+        // console.log(event.target.value)
         this.setState({
             organizer:event.target.value
         })
     }
 
-    handleAddition(event, {v}) {
+    handleAddition(event, v) {
       console.log(event);
-      console.log(v);
-      if (v !== undefined) {
-        console.log(v);
+      console.log(v.value);
+      if (v) {
+        console.log(v.value);
         this.setState({
-          options: [{text: v, value: v.toLowerCase(), key: v.toLowerCase()}, ...this.state.options]
+          options: [{text: v.value, value: v.value.toLowerCase(), key: v.value.toLowerCase()}, ...this.state.options]
         })
       }
     }
     updateTags(event, {value}) {
         console.log(value);
-        this.setState({ tags: value })
+        this.setState({ currentValues: value })
     }
 
     updateDateFrom(event){
@@ -96,24 +97,25 @@ class Searchbox extends Component {
     }
 
     updateTitle(event){
-        console.log(event.target.value)
+        // console.log(event.target.value)
         this.setState({
             title:event.target.value
         })
     }
     postSearch(event, child, limit){
+        console.log(this.state);
         var where = {
             "date": { "$gt": this.state.dateFrom, "$lt": this.state.dateEnd },
         };
         if (this.state.title) {
           where["title"] = { "$regex": '.*' + this.state.title + '.*', "$options": 'si'}
-        }
+        };
         if (this.state.organizer) {
           where["creator"] = { "$regex": '.*' + this.state.organizer + '.*', "$options": 'si'}
-        }
-        if (this.state.tags.length) {
-          where["tags"] = { "$all": this.state.tags }
-        }
+        };
+        if (this.state.currentValues.length) {
+          where["tags"] = { "$all": this.state.currentValues }
+        };
         console.log(JSON.stringify(where));
         console.log(limit);
         axios.get('http://localhost:4000/api/events', {
@@ -132,11 +134,12 @@ class Searchbox extends Component {
     }
 
     feelLucky(event, child){
-        this.postSearch(event, child, 10);
+        this.postSearch(event, child, 1);
     }
 
     render() {
         if(this.state.searched === false){
+        const { currentValues } = this.state
         return (
             <div className="searchevent_body">
                 <h1>Search Events</h1>
@@ -182,13 +185,18 @@ class Searchbox extends Component {
                     </Form.Field>
                     <Form.Field>
                         <label>Event tags</label>
-                        <Dropdown placeholder='Tags'
-                          search fluid multiple selection
-                          allowAdditions additionLabel='Custom Tag: '
-                          options={this.state.options}
-                          value={this.state.tags}
-                          onAddItem={this.handleAddition}
-                          onChange={this.updateTags} />
+                          <Dropdown
+                            options={this.state.options}
+                            placeholder='Select Tags'
+                            search
+                            selection
+                            fluid
+                            multiple
+                            allowAdditions
+                            value={currentValues}
+                            onAddItem={this.handleAddition}
+                            onChange={this.updateTags}
+                          />
                     </Form.Field>
                     <Button color = 'yellow' type = 'submit' onClick = {this.postSearch}>Search</Button>
                     <Button color = 'yellow' type = 'submit' onClick = {this.feelLucky}>I'm Feeling Lucky</Button>
@@ -204,6 +212,7 @@ class Searchbox extends Component {
             <td className="event_creator">{e.creator}</td>
             <td className="event_date">{e.date}</td>
             <td className="event_address">{e.address}</td>
+            <td className="event_tags">{e.tags}</td>
           </tr>);
         });
         return(
@@ -215,6 +224,7 @@ class Searchbox extends Component {
                       <th>Creator</th>
                       <th>Date</th>
                       <th>Address</th>
+                      <th>Tags</th>
                     </tr>
                   </thead>
                   <tbody>

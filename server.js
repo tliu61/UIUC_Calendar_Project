@@ -52,9 +52,9 @@ app.use('/api/events',events);
 app.use('/api/users',users);
 require('./routes')(app, router);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'))
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname+'/client/build/index.html'))
+// });
 
 // Start the server
 app.listen(port);
