@@ -218,7 +218,7 @@ class PostEventform extends Component {
         console.log(this.state.CoverPic)
 
         var new_event = {
-          tags: this.state.tempTags.concat(this.state.CustomTags),
+          tags: this.tempTags.concat(this.state.CustomTags),
           title: this.state.Title,
           email: this.state.OrganizerContactInfo,
           date: this.state.Date,
@@ -284,7 +284,7 @@ class PostEventform extends Component {
                         <Button.Group>
                             <Button value = "academic" onClick = {this.updateTags} >Academic</Button>
                             <Button value = "chill" onClick = {this.updateTags}>Chill</Button>
-                            <Button value= "sport" onClick = {this.updateTags}>Sport</Button>
+                            <Button value = "sport" onClick = {this.updateTags}>Sport</Button>
                             <Button vakue = "movie" onClick = {this.updateTags}> Movie</Button>
                             <Button value = "food" onClick = {this.updateTags}>Food</Button>
                             <Button value = "outside" onClick = {this.updateTags}>Outside</Button>

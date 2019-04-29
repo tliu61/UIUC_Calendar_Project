@@ -3,6 +3,8 @@ import {Input, Button, Checkbox, Form} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import "../../Styles/LoginForm.css"
 import 'semantic-ui-css/semantic.min.css';
+import axios from 'axios';
+
 
 
 class LoginForm extends Component {
@@ -65,8 +67,30 @@ class LoginForm extends Component {
         console.log(this.state.username)
         console.log(this.state.password)
         console.log(this.state.human)
+        if(this.state.human === false){
+          alert("please verify you are a human.")
+        }
+        var getEmail = this.state.username;
+        var getPassword = this.state.password;
 
-        // after connect to the api, 
+        axios.get('http://localhost:4000/api/users/' + getEmail + '/password/' + getPassword)
+          .then(res => {
+            console.log(res.data);
+            console.log("successPosted");
+            this.setState({
+                posted : true,
+                successPosted:true
+            })
+          })
+          .catch(err => {
+            console.log(err.response)
+            this.setState({
+                posted: true,
+                successPosted:false
+            })
+          })
+
+        // after connect to the api,
         // if returned error :
         /*
              this.setState({
@@ -84,8 +108,8 @@ class LoginForm extends Component {
        */
     }
     render() {
-        
-        if(this.state.posted === false){
+
+      if(this.state.posted === false){
         return (
             <div className = "loginform_body">
                 <h1>User Login</h1>
