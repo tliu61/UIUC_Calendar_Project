@@ -26,6 +26,7 @@ class PostEventform extends Component {
 
         this.state={
             Title: "",
+            NewTag: "",
             Date: "",
             Organizer: "",
             OrganizerContactInfo: "",
@@ -50,6 +51,11 @@ class PostEventform extends Component {
         this.postEvent = this.postEvent.bind(this);
 
         this.onPick = this.onPick.bind(this);
+        
+        this.addCustomTag = this.addCustomTag.bind(this);
+        this.updateCustomTag = this.updateCustomTag.bind(this);
+        this.deleteCustomTag = this.deleteCustomTag.bind(this);
+        this.updateNewTag = this.updateNewTag.bind(this);
     }
 
     onPick(image) {
@@ -138,6 +144,59 @@ class PostEventform extends Component {
             Organizer:event.target.value
         })
     }
+    
+        addCustomTag(event){
+        if(event.currentTarget.getAttribute("value")!==''){
+            console.log("Add NewTag:",event.currentTarget.getAttribute("value"));
+            this.setState({CustomTags:this.state.CustomTags.concat([event.currentTarget.getAttribute("value")]),NewTag:""});
+        }
+    }
+
+    updateNewTag(event){
+        console.log("Update NewTag:",event.target.value);
+        this.setState({NewTag:event.target.value});
+    }
+
+    deleteCustomTag(event){
+        console.log("Delete CustomTag:",event.currentTarget.getAttribute("value"));
+        //console.log("Delete Index:",this.state.CustomTags.indexOf(event.currentTarget.getAttribute("value")));
+        this.setState({CustomTags:this.state.CustomTags.filter((value,_) => value !== event.currentTarget.getAttribute("value"))});
+    }
+    
+    updateCustomTag(event){
+        console.log("OldValue:",event.target.defaultValue);
+        this.setState({CustomTags:this.state.CustomTags.map((value,_) => value === event.target.defaultValue?event.target.value:value)});
+    }
+
+    createCustomizedTagGroup = () => {
+        let group = []
+        console.log("Render NewTag:",this.state.NewTag);
+        console.log("Custom Tags:",this.state.CustomTags);
+        //console.log("Temp Custom Tags:",this.tempCustomTags);
+        for (var i in this.state.CustomTags){
+            let customTag = this.state.CustomTags[i];
+            console.log(i,":",customTag);
+            group.push(
+                <div class="ui right labeled icon input" style={{display:'inline'}}>
+                    <i class="minus square link icon" value = {customTag} onClick = {this.deleteCustomTag}></i>
+                    <input type="text" value={customTag} onChange = {this.updateCustomTag}/>
+                </div>
+
+            );
+        }
+
+        group.push(
+            <div class="ui right labeled left icon input" style={{display:'inline'}}>
+              <i class="tags icon"></i>
+              <input type="text" value= {this.state.NewTag} onChange = {this.updateNewTag}/>
+              <a class="ui tag label" value = {this.state.NewTag} onClick = {this.addCustomTag}>
+                Add Tag
+              </a>
+            </div>
+        );
+        console.log(group);
+        return group;
+    }
 
     postEvent(event){
         // here need to call the db
@@ -224,6 +283,9 @@ class PostEventform extends Component {
                             <Button value = "reading" onClick = {this.updateTags}>Reading</Button>
                             <Button value = "party" onClick = {this.updateTags}>Party</Button>
                         </Button.Group>
+                        <div>
+                            {this.createCustomizedTagGroup()}
+                        </div>
                     </Form.Field>
                     <Form.Field required>
                         <label>Introduction</label>
