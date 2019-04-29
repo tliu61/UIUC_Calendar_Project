@@ -217,7 +217,7 @@ class PostEventform extends Component {
         console.log(this.state.CoverPic)
 
         var new_event = {
-          tags: this.tempTags,
+          tags: this.state.tempTags.concat(this.state.CustomTags),
           title: this.state.Title,
           email: this.state.OrganizerContactInfo,
           date: this.state.Date,
