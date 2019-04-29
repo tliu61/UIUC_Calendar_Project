@@ -32,6 +32,7 @@ class PostEventform extends Component {
             OrganizerContactInfo: "",
             Location: "",
             Tags: [],
+            CustomTags:[],
             Introduction: "",
             ExternalLink: "",
             CoverPic: null,
