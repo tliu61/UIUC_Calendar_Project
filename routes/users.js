@@ -115,10 +115,10 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Psuedo User Authentication
-router.get('/:id/password/:pass', async (req, res) => {
+router.get('/:email/password/:pass', async (req, res) => {
   try {
     console.log('Getting user with password authentication');
-    var user = await User.findById(req.params.id).exec();
+    var user = await User.findOne({email: req.params.email}).exec();
     if (passwordHash.verify(req.params.pass, user.password)) {
       res.send({
         message: 'OK',
@@ -137,10 +137,10 @@ router.get('/:id/password/:pass', async (req, res) => {
   }
 });
 
-router.get('/:id/security/:answer', async (req, res) => {
+router.get('/:email/security/:answer', async (req, res) => {
   try {
     console.log('Getting user with security question authentication');
-    var user = await User.findById(req.params.id).exec();
+    var user = await User.findOne({email: req.params.email}).exec();
     if (user.securityanswer == req.params.answer) {
       res.send({
         message: 'OK',
