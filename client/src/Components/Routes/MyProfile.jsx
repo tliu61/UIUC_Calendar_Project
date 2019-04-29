@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Footer from '../Constant/Footer';
 import NavigationBar from '../Constant/NavigationBar';
+import Profile from '../Users/Profile'
 
 
 class MyProfile extends Component {
@@ -10,7 +11,7 @@ class MyProfile extends Component {
         return (
             <div className = "myprofile_body">
                 <NavigationBar />
-                {/* need a profile thing with all details of users*/}
+                <Profile />
                 <Footer/>
             </div>
          );
