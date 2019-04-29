@@ -1,0 +1,22 @@
+.profile_top {
+  padding-top: 75px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.profile_text {
+  padding-top: 40px;
+  font-size: 28px;
+  padding-bottom: 60px;
+  text-align: center;
+
+}
+
+h1{
+  text-align: center;
+  padding-bottom: 50px;
+}

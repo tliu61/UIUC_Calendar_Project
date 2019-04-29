@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
-import {Link} from 'react-router-dom'
-import {Image, Form, Input, Button, Dropdown, Card} from 'semantic-ui-react';
-import DatePicker from 'react-datepicker';
+import {Image, Card} from 'semantic-ui-react';
 import axios from 'axios';
 import '../../Styles/EventList.css'
 
-import img1 from './../../images/Default-Group.jpg'
 
 
 function isEmpty(obj) {
@@ -23,21 +20,49 @@ class EventList extends Component {
       super();
 
       this.state = {
+        curr_events: [],
         results: []
       }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ curr_events: nextProps.e})
+    var events = []
+    let promises = this.state.curr_events.map((event_id, idx) => {
+      var result;
+      axios.get(`http://localhost:4000/api/events/${event_id}`)
+        .then(res => {
+          result = res.data.data
+          events.push(result)
+          //console.log(result.coverpicture)
+          this.setState({
+            results: events
+          })
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
 
-  /*
-    componentWillMount() {
-      if (this.state.results != []) {
+    })
+    Promise.all(promises).then(() => {
+      this.setState({
+        results: events
+      })
+    })
+  }
+
+    componentDidMount() {
         var events = []
-        let promises =['5cc4bf7296e2cc098a1c440a','5cc4bf7296e2cc098a1c440c'].map((movie, idx) => {
+        let promises = this.state.curr_events.map((event_id, idx) => {
+
           var result;
-          axios.get(`http://localhost:4000/api/events/${movie}`)
+          axios.get(`http://localhost:4000/api/events/${event_id}`)
             .then(res => {
               result = res.data.data
               events.push(result)
+              this.setState({
+                results: events
+              })
             })
             .catch(err => {
               console.log(err.response)
@@ -51,11 +76,9 @@ class EventList extends Component {
         })
       }
 
-    }
-    */
+
 
     render() {
-      //console.log(this.props.e)
       if (isEmpty(this.props)) {
         return (
           <div>
@@ -66,53 +89,43 @@ class EventList extends Component {
       else {
         //console.log(this.props.e)
 
-        /*
-        console.log(this.state.results)
+
+        //console.log(this.state.results)
         const EventBlock = this.state.results.map((result, idx) => {
-          console.log(result)
+          var tag_str = ""
+          result.tags.forEach(function(tag) {
+            tag_str = tag_str + tag + ", "
+          })
+          tag_str = tag_str.slice(0, tag_str.length - 2)
             return (
+              <div className = "event_card">
               <Card>
-                <Image src = 'https://data.whicdn.com/images/293514924/superthumb.jpg?t=1501609884' />
+                <Image src = 'https://www.philly.com/resizer/ISy83vim3ZwEHinTpXeE1uNfnbA=/1400x932/smart/arc-anglerfish-arc2-prod-pmn.s3.amazonaws.com/public/UIKMF6FODVHDLPIAJLELVD3EUI.jpg' />
                 <Card.Content>
                     <Card.Header> {result.title} </Card.Header>
                     <Card.Meta> {result.creator} </Card.Meta>
                     <Card.Meta> {result.date} </Card.Meta>
-                    <Card.Description> {result.date} </Card.Description>
+                    <Card.Description> {result.introduction} </Card.Description>
                 </Card.Content>
                 <Card.Content>
                   <div className = "test">
                   {result.address}
                   </div> <br />
-                  <Card.Meta> {result.tags} </Card.Meta>
+                  <Card.Meta> {tag_str} </Card.Meta>
                 </Card.Content>
               </Card>
+              </div>
             );
 
 
 
-        })*/
-        console.log(this.state.results)
+        })
+
+        //console.log(this.state.results)
+        //console.log(this.state.results.length)
         return (
-          <div className = "events">
-          <Card>
-            <Image src = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Illinois_Block_I.png' />
-            <Card.Content>
-                <Card.Header> Event Title </Card.Header>
-                <Card.Meta> Organizer </Card.Meta>
-                <Card.Meta> Date </Card.Meta>
-                <Card.Description>
-                  <div className = "test">
-                    Explanation about the event should be a bit long yada yada yada yada
-                  </div>
-                </Card.Description>
-            </Card.Content>
-            <Card.Content>
-              <div className = "test">
-                Address of event
-              </div> <br />
-              <Card.Meta> List of tags for event </Card.Meta>
-            </Card.Content>
-          </Card>
+          <div className = "event_block">
+          {EventBlock}
           </div>
         )
       }

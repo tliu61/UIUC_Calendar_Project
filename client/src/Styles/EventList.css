@@ -3,6 +3,14 @@
   padding-top: 200px;
   padding-left: 200px
 }
+.event_block{
+  padding-bottom: 50px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.event_card {
+  margin: auto;
+}
 .test {
   text-align: left;
 }

@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
-import {Link} from 'react-router-dom'
-import {Image, Form, Input, Button, Dropdown, Card} from 'semantic-ui-react';
-import DatePicker from 'react-datepicker';
+import {Image} from 'semantic-ui-react';
 import axios from 'axios';
-import '../../Styles/EventList.css'
+import '../../Styles/Profile.css'
 
 import EventList from '../SearchEvent/EventList'
 
-import img1 from './../../images/Default-Group.jpg'
 
 
 class Profile extends Component {
@@ -17,34 +14,57 @@ class Profile extends Component {
         super();
 
         this.state = {
-          results: []
+          results: [],
+          curr_user: '5cc4bf7196e2cc098a1c43ee',
+          name: 'temp',
+          email: 'temp',
+          picture: 'https://data.whicdn.com/images/293514924/superthumb.jpg?t=1501609884',
+          createdevents: [],
+          joinedevents: []
         }
-        /*
-        var events = []
-        let promises = ['5cc4bf7296e2cc098a1c440a','5cc4bf7296e2cc098a1c440c'].map((movie, idx) => {
-          var result;
-          axios.get(`http://localhost:4000/api/events/${movie}`)
-            .then(res => {
-              result = res.data.data
-              events.push(result)
-            })
-            .catch(err => {
-              console.log(err.response)
-            })
-
-        })
-        */
 
     }
 
+    componentWillMount() {
+      var result;
+      let promise = axios.get(`http://localhost:4000/api/users/${this.state.curr_user}`)
+        .then(res => {
+          result = res.data.data
+          this.setState({
+            name: result.name,
+            email: result.email,
+            createdevents: result.createdevents,
+            joinedevents: result.savedevents
+          })
+        })
+
+      Promise.resolve(promise).then(() => {
+        this.setState({
+          name: result.name,
+          email: result.email,
+          createdevents: result.createdevents,
+          joinedevents: result.savedevents
+        })
+      })
+    }
+
     render() {
-      /*
-      this.state.results.map((movie, idx) => {
-        console.log(movie)
-      })*/
+      //console.log(this.state.joinedevents)
         return (
           <div>
-            <EventList e/>
+            <div className = "profile_top">
+
+              <Image src = {this.state.picture} className = 'img'/>
+              <div className = "profile_text">
+                {this.state.name}
+                <br/> <br/>
+                {this.state.email}
+              </div>
+            </div>
+            <h1> Events you have joined </h1>
+            <EventList e = {this.state.joinedevents}/>
+            <h1> Events you have created </h1>
+            <EventList e = {this.state.createdevents}/>
           </div>
         )
     }
