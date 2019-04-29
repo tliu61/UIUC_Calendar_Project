@@ -5,6 +5,7 @@ import '../../Styles/PostEventform.css'
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 import ImagePicker from 'react-image-picker';
+import DatePicker from 'react-datepicker';
 import 'react-image-picker/dist/index.css';
 
 //import images from local
@@ -27,7 +28,7 @@ class PostEventform extends Component {
         this.state={
             Title: "",
             NewTag: "",
-            Date: "",
+            Date: new Date(),
             Organizer: "",
             OrganizerContactInfo: "",
             Location: "",
@@ -52,7 +53,7 @@ class PostEventform extends Component {
         this.postEvent = this.postEvent.bind(this);
 
         this.onPick = this.onPick.bind(this);
-        
+
         this.addCustomTag = this.addCustomTag.bind(this);
         this.updateCustomTag = this.updateCustomTag.bind(this);
         this.deleteCustomTag = this.deleteCustomTag.bind(this);
@@ -133,9 +134,9 @@ class PostEventform extends Component {
     }
 
     updateDate(event){
-        console.log(event.target.value);
+        console.log(event);
         this.setState({
-            Date: event.target.value
+            Date: event
         })
     }
 
@@ -145,7 +146,7 @@ class PostEventform extends Component {
             Organizer:event.target.value
         })
     }
-    
+
         addCustomTag(event){
         if(event.currentTarget.getAttribute("value")!==''){
             console.log("Add NewTag:",event.currentTarget.getAttribute("value"));
@@ -163,7 +164,7 @@ class PostEventform extends Component {
         //console.log("Delete Index:",this.state.CustomTags.indexOf(event.currentTarget.getAttribute("value")));
         this.setState({CustomTags:this.state.CustomTags.filter((value,_) => value !== event.currentTarget.getAttribute("value"))});
     }
-    
+
     updateCustomTag(event){
         console.log("OldValue:",event.target.defaultValue);
         this.setState({CustomTags:this.state.CustomTags.map((value,_) => value === event.target.defaultValue?event.target.value:value)});
@@ -178,8 +179,8 @@ class PostEventform extends Component {
             let customTag = this.state.CustomTags[i];
             console.log(i,":",customTag);
             group.push(
-                <div class="ui right labeled icon input" style={{display:'inline'}}>
-                    <i class="minus square link icon" value = {customTag} onClick = {this.deleteCustomTag}></i>
+                <div className="ui right labeled icon input" key={customTag} style={{display:'inline'}}>
+                    <i className="minus square link icon" value = {customTag} onClick = {this.deleteCustomTag}></i>
                     <input type="text" value={customTag} onChange = {this.updateCustomTag}/>
                 </div>
 
@@ -187,10 +188,10 @@ class PostEventform extends Component {
         }
 
         group.push(
-            <div class="ui right labeled left icon input" style={{display:'inline'}}>
-              <i class="tags icon"></i>
+            <div className="ui right labeled left icon input" key={""} style={{display:'inline'}}>
+              <i className="tags icon"></i>
               <input type="text" value= {this.state.NewTag} onChange = {this.updateNewTag}/>
-              <a class="ui tag label" value = {this.state.NewTag} onClick = {this.addCustomTag}>
+              <a className="ui tag label" value = {this.state.NewTag} onClick = {this.addCustomTag}>
                 Add Tag
               </a>
             </div>
@@ -255,7 +256,16 @@ class PostEventform extends Component {
                     </Form.Field>
                     <Form.Field required>
                         <label>Date</label>
-                        <Input placeholder = "yyyy-MM-dd" onChange = {this.updateDate}/>
+                        <DatePicker
+                            selected={this.state.Date}
+                            onChange={this.updateDate}
+                            inline
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={30}
+                            dateFormat="MMMM d, yyyy h:mm aa"
+                            timeCaption="time"
+                        />
                     </Form.Field>
                     <Form.Field required>
                         <label>Organizer</label>
