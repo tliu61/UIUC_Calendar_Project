@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cd7e8dc5.chunk.css",
+    "main.js": "/static/js/main.6fc876df.chunk.js",
+    "main.js.map": "/static/js/main.6fc876df.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.659fd406.chunk.css": "/static/css/2.659fd406.chunk.css",
+    "static/js/2.fd2bd11e.chunk.js": "/static/js/2.fd2bd11e.chunk.js",
+    "static/js/2.fd2bd11e.chunk.js.map": "/static/js/2.fd2bd11e.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f2b520a5fc162b255ce375bce11c2df6.js": "/precache-manifest.f2b520a5fc162b255ce375bce11c2df6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.659fd406.chunk.css.map": "/static/css/2.659fd406.chunk.css.map",
+    "static/css/main.cd7e8dc5.chunk.css.map": "/static/css/main.cd7e8dc5.chunk.css.map",
+    "static/media/Academics.jpg": "/static/media/Academics.0801811e.jpg",
+    "static/media/Chill.jpg": "/static/media/Chill.d1301561.jpg",
+    "static/media/Default-Group.jpg": "/static/media/Default-Group.e246bead.jpg",
+    "static/media/Graduation.jpg": "/static/media/Graduation.71b6e611.jpg",
+    "static/media/Nature.jpg": "/static/media/Nature.41be5e79.jpg",
+    "static/media/Party.jpg": "/static/media/Party.a89f8e52.jpg",
+    "static/media/School.JPG": "/static/media/School.183a02cc.JPG",
+    "static/media/Sport.jpg": "/static/media/Sport.aa863001.jpg",
+    "static/media/semantic.min.css": "/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/index.css": "/static/media/checkbcd1a436590360ed53ac2f46c76e43e4.bcd1a436.png"
+  }
+}
