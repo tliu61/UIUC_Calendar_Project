@@ -63,7 +63,7 @@ class PostEventform extends Component {
     onPick(image) {
       console.log(image);
       this.setState({
-        CoverPic:image
+        CoverPic:image.src
       })
     }
 
