@@ -120,7 +120,7 @@ class LoginForm extends Component {
                     </Form.Field>
                     <Form.Field className = "loginform_field">
                         <label> Password </label>
-                        <Input placeholder = 'password' onChange = {this.updatePassword}/>
+                        <Input type="password" placeholder = 'password' onChange = {this.updatePassword}/>
                     </Form.Field>
                     <Form.Field className = "loginform_field">
                         <Checkbox label = 'Verify I am human' onChange = {this.updateHuman}/>
