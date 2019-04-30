@@ -172,11 +172,11 @@ class SignupForm extends Component {
                     </Form.Field>
                     <Form.Field required>
                         <label>Password</label>
-                        <Input placeholder = "" onChange = {this.updatePassword}/>
+                        <Input type="password" placeholder = "" onChange = {this.updatePassword}/>
                     </Form.Field>
                     <Form.Field required>
                         <label>Confirm password</label>
-                        <Input placeholder = "" onChange = {this.updateConfirmPassword}/>
+                        <Input type="password" placeholder = "" onChange = {this.updateConfirmPassword}/>
                     </Form.Field>
                     <Form.Field required>
                         <label>Security Question</label>
