@@ -1,6 +1,7 @@
 {
   "name": "finalproject_magics",
   "version": "1.0.0",
+  "main": "server.js",
   "description": "Final project for CS498web",
   "authors": [
     "Matthew Arensdorf <arensdo2@illinois.edu>",

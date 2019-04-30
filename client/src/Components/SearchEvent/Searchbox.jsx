@@ -7,7 +7,6 @@ import DatePicker from 'react-datepicker';
 import axios from 'axios';
 
 import "react-datepicker/dist/react-datepicker.css";
-import EventList from '../SearchEvent/EventList'
 
 const options = [
   { key: 'academic', text: 'Academic', value: 'academic' },

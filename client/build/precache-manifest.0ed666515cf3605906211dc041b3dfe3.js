@@ -1,27 +1,59 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9f42c75ae0b3043ed37b8b59584bd7e9",
+    "revision": "11eda3912e09c769ee602960cdd87a2d",
     "url": "/index.html"
   },
   {
-    "revision": "6c26d86f379a19a46ff8",
-    "url": "/static/css/2.faaa52d3.chunk.css"
+    "revision": "8a3b5eedb41d94d84a5d",
+    "url": "/static/css/2.659fd406.chunk.css"
   },
   {
-    "revision": "66de1156d2549fe9e739",
-    "url": "/static/css/main.8f98b765.chunk.css"
+    "revision": "c5f27aa00857a1d13e65",
+    "url": "/static/css/main.f1082c3f.chunk.css"
   },
   {
-    "revision": "6c26d86f379a19a46ff8",
-    "url": "/static/js/2.701a3740.chunk.js"
+    "revision": "8a3b5eedb41d94d84a5d",
+    "url": "/static/js/2.68b32a43.chunk.js"
   },
   {
-    "revision": "66de1156d2549fe9e739",
-    "url": "/static/js/main.95c1157e.chunk.js"
+    "revision": "c5f27aa00857a1d13e65",
+    "url": "/static/js/main.3ab2e1d0.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
+  },
+  {
+    "revision": "0801811eef53e4ebcad3855bb348089b",
+    "url": "/static/media/Academics.0801811e.jpg"
+  },
+  {
+    "revision": "d13015614b497981c9fee757a6d0fbf2",
+    "url": "/static/media/Chill.d1301561.jpg"
+  },
+  {
+    "revision": "e246bead60f4ea3078298df62571d4f9",
+    "url": "/static/media/Default-Group.e246bead.jpg"
+  },
+  {
+    "revision": "71b6e6118d6deb932f4b62cb5b3f33b1",
+    "url": "/static/media/Graduation.71b6e611.jpg"
+  },
+  {
+    "revision": "41be5e797bcf141d9f6495430b085195",
+    "url": "/static/media/Nature.41be5e79.jpg"
+  },
+  {
+    "revision": "a89f8e52b351c15de01f8c9bd2f86684",
+    "url": "/static/media/Party.a89f8e52.jpg"
+  },
+  {
+    "revision": "183a02cc7cf9a5204ed3e593cd6c14a1",
+    "url": "/static/media/School.183a02cc.JPG"
+  },
+  {
+    "revision": "aa86300123393c880bcd23da595ecaa6",
+    "url": "/static/media/Sport.aa863001.jpg"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",
@@ -42,6 +74,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "e8c322de9658cbeb8a774b6624167c2c",
     "url": "/static/media/brand-icons.e8c322de.woff2"
+  },
+  {
+    "url": "/static/media/checkbcd1a436590360ed53ac2f46c76e43e4.bcd1a436.png"
   },
   {
     "revision": "9c74e172f87984c48ddf5c8108cabe67",
