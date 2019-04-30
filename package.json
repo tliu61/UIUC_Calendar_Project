@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "start": "nodemon --exec node server.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "babel": {
     "presets": [
