@@ -27,7 +27,7 @@ class Profile extends Component {
 
     componentWillMount() {
       var result;
-      let promise = axios.get(`http://localhost:4000/api/users/${this.state.curr_user}`)
+      let promise = axios.get(`/api/users/${this.state.curr_user}`)
         .then(res => {
           result = res.data.data
           this.setState({

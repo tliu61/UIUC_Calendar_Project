@@ -225,7 +225,7 @@ class PostEventform extends Component {
           coverpicture: this.state.CoverPic,
         }
 
-        axios.post('http://localhost:4000/api/events', new_event)
+        axios.post('/api/events', new_event)
           .then(res => {
             console.log(res.data)
             this.setState({

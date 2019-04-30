@@ -73,7 +73,7 @@ class LoginForm extends Component {
         var getEmail = this.state.username;
         var getPassword = this.state.password;
 
-        axios.get('http://localhost:4000/api/users/' + getEmail + '/password/' + getPassword)
+        axios.get('/api/users/' + getEmail + '/password/' + getPassword)
           .then(res => {
             console.log(res.data);
             console.log("successPosted");

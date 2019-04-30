@@ -135,7 +135,7 @@ class SignupForm extends Component {
           securityanswer: this.state.securityQuestionAnswer
         }
 
-        axios.post('http://localhost:4000/api/users', new_user)
+        axios.post('/api/users', new_user)
           .then(res => {
             console.log(res.data)
             this.setState({

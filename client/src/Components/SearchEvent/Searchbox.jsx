@@ -119,7 +119,7 @@ class Searchbox extends Component {
         };
         console.log(JSON.stringify(where));
         console.log(limit);
-        axios.get('http://localhost:4000/api/events', {
+        axios.get('/api/events', {
           params: {
             where: JSON.stringify(where),
             limit: limit ? limit : 0
@@ -208,7 +208,7 @@ class Searchbox extends Component {
     }else{
         var eventComponents = this.state.events.map((e) => {
           return (
-            <Card>
+            <Card key={e._id}>
               <Image src={e.coverpicture} />
               <Card.Content>
                 <Card.Header>{e.title}</Card.Header>

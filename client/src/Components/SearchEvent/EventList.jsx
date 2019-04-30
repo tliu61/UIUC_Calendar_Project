@@ -30,7 +30,7 @@ class EventList extends Component {
     var events = []
     let promises = this.state.curr_events.map((event_id, idx) => {
       var result;
-      axios.get(`http://localhost:4000/api/events/${event_id}`)
+      axios.get(`/api/events/${event_id}`)
         .then(res => {
           result = res.data.data
           events.push(result)
@@ -56,7 +56,7 @@ class EventList extends Component {
         let promises = this.state.curr_events.map((event_id, idx) => {
 
           var result;
-          axios.get(`http://localhost:4000/api/events/${event_id}`)
+          axios.get(`/api/events/${event_id}`)
             .then(res => {
               result = res.data.data
               events.push(result)
