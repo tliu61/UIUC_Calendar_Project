@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
 import {Link} from 'react-router-dom'
-import {Form, Input, Button, Dropdown} from 'semantic-ui-react';
+import {Form, Input, Button, Dropdown, Card, Icon, Image} from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 
 import "react-datepicker/dist/react-datepicker.css";
+import EventList from '../SearchEvent/EventList'
 
 const options = [
   { key: 'academic', text: 'Academic', value: 'academic' },
@@ -207,31 +208,31 @@ class Searchbox extends Component {
     }else{
         var eventComponents = this.state.events.map((e) => {
           return (
-          <tr className="event" key={e._id}>
-            <td className="event_title">{e.title}</td>
-            <td className="event_creator">{e.creator}</td>
-            <td className="event_date">{e.date}</td>
-            <td className="event_address">{e.address}</td>
-            <td className="event_tags">{e.tags}</td>
-          </tr>);
+            <Card>
+              <Image src={e.coverpicture} />
+              <Card.Content>
+                <Card.Header>{e.title}</Card.Header>
+                <Card.Meta>
+                  <span className='date'>{e.date}</span> <br/>
+                  <span className='address'>{e.address}</span>
+                </Card.Meta>
+                <Card.Description>{e.introduction}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a>
+                  <Icon name='user' />
+                  <span className='name'>
+                    {e.creator}<br/>
+                    {e.email}
+                  </span>
+                </a>
+              </Card.Content>
+            </Card>);
         });
         return(
             <div className = "searchevent_body">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Creator</th>
-                      <th>Date</th>
-                      <th>Address</th>
-                      <th>Tags</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {eventComponents}
-                  </tbody>
-                </table>
-                <Link to='/findevent' onClick = {this.resetSearch}>Re-Search Events</Link>
+              <Card.Group>{eventComponents}</Card.Group>
+              <Link to='/findevent' onClick = {this.resetSearch}>Re-Search Events</Link>
             </div>
         )
     }
