@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../Styles/Searchbox.css';
-import {Image, Card} from 'semantic-ui-react';
+import {Image, Card, Button} from 'semantic-ui-react';
 import axios from 'axios';
 import '../../Styles/EventList.css'
 
@@ -76,7 +76,9 @@ class EventList extends Component {
         })
       }
 
-
+      saveEventToGoogle(event){
+        alert("event added to Google Calendar!");
+      }
 
     render() {
       if (isEmpty(this.props)) {
@@ -112,6 +114,9 @@ class EventList extends Component {
                   {result.address}
                   </div> <br />
                   <Card.Meta> {tag_str} </Card.Meta>
+                </Card.Content>
+                <Card.Content>
+                  <Button id = 'google' color = 'blue' type = 'input' onClick = {this.saveEventToGoogle}>Add to Google Calendar</Button>
                 </Card.Content>
               </Card>
               </div>
