@@ -137,6 +137,14 @@ class Searchbox extends Component {
         this.postSearch(event, child, 1);
     }
 
+    saveEvent(event){
+      alert("event saved!");
+    }
+
+    saveEventToGoogle(event){
+      alert("event added to Google Calendar!");
+    }
+
     render() {
         if(this.state.searched === false){
         const { currentValues } = this.state
@@ -225,6 +233,10 @@ class Searchbox extends Component {
                     {e.email}
                   </span>
                 </a>
+              </Card.Content>
+              <Card.Content>
+                <Button color = 'yellow' type = 'input' onClick = {this.saveEvent}>Save</Button>
+                <Button id = 'google' color = 'blue' type = 'input' onClick = {this.saveEventToGoogle}>Add to Google Calendar</Button>
               </Card.Content>
             </Card>);
         });

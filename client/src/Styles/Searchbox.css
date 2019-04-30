@@ -4,3 +4,8 @@
     padding-top: 60px;
     padding-bottom: 60px;
 }
+
+#google{
+  color : white;
+  background-color: #4285F4; /*google blue*/
+}
