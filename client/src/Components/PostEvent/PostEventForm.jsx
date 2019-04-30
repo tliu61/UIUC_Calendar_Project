@@ -268,7 +268,7 @@ class PostEventform extends Component {
                         <label>Organizer</label>
                         <Input placeholder = "" onChange = {this.updateOrganizer}/>
                     </Form.Field>
-                    <Form.Field>
+                    <Form.Field required>
                         <label>Organizer Email</label>
                         <Input placeholder = "" onChange = {this.updateOrganizerInfo}/>
                     </Form.Field>
