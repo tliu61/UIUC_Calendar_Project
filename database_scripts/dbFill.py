@@ -20,6 +20,25 @@ from random import choice
 from datetime import date
 from time import mktime
 
+#import images from local
+img1 = 'https://www.swchs.com/wp-content/uploads/2019/03/events.jpg'
+img2 = 'http://www.so-events.at/SYSTEM/image_background/standard/background_02.jpg'
+img3 = 'https://res.cloudinary.com/highereducation/image/upload/v1533591754/TheBestColleges.org/study-notebooks.jpg'
+img4 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw2HxwnizDt0flJTzQGTHJxbITOjF_7bEx_4RmHkZ0DcWoPBqe'
+img5 = 'https://nicolesyblog.com/wp-content/uploads/2011/04/nicolesy-food-6490_Edit_131011.jpg'
+img6 = 'https://format-com-cld-res.cloudinary.com/image/private/s--tv6LHD35--/c_limit,g_center,h_1200,w_65535/a_auto,fl_keep_iptc.progressive,q_95/v1/7707f8b1b492ad9fc7bab4f031d9d035/burger_update.jpg'
+img7 = 'https://ewscripps.brightspotcdn.com/dims4/default/3f2a8fa/2147483647/strip/true/crop/640x360+0+25/resize/1280x720!/quality/90/?url=https%3A%2F%2Fmediaassets.abc15.com%2Fphoto%2F2017%2F03%2F25%2FIMG_1345_1490511415361_57374237_ver1.0_640_480.JPG'
+img8 = 'https://s3.amazonaws.com/renter-blog-assets/blog/wp-content/uploads/2018/08/27111730/Outdoors-Cities.jpg'
+img9 = 'https://ewscripps.brightspotcdn.com/dims4/default/2ef4284/2147483647/strip/true/crop/500x281+0+24/resize/1280x720!/quality/90/?url=https%3A%2F%2Fewscripps.brightspotcdn.com%2F7f%2F14%2Fa38a1ff34a2486d07294f3a140ab%2Fma-story-coasters-cta.jpg'
+img10 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5QqE_eZyDbsaeAkTcrq650uQjy9vKcy3HdtR0C3xQ11xq-Objng'
+img11 = 'http://web.hep.uiuc.edu/hepg/images/photos/2.jpg'
+img12 = 'https://cdn.cnn.com/cnnnext/dam/assets/190425160639-02-avengers-endgame-thumb-imax-poster-super-tease.jpg'
+img13 = 'https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/site/54/images/BhPgYb7ATwCkxpVFmMjF_635892552728342323-2053461056_Woman-reading-a-book-014.jpg'
+img14 = 'https://4.bp.blogspot.com/-__e53RCeVfc/WqWMglwcfuI/AAAAAAAADl4/rq59k5X28BUuAp2mCezRhdFePADEqUDZgCLcBGAs/s1600/Chill%2BWallpaper%2BEngine.jpg'
+img15 = 'https://static1.squarespace.com/static/58c1a4b8e4fcb5954a9c0cae/t/5c06d1934fa51a4f829e25fa/1543950765304/feature-image-dec0418-large.png'
+
+imageList = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15];
+
 def usage():
     print('dbFill.py -u <baseurl> -p <port> -n <numUsers> -t <numEvents>')
 
@@ -119,7 +138,7 @@ def main(argv):
         eventDate = (mktime(date.today().timetuple()) + randint(86400,864000)) * 1000
         introduction = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
         address = "999 Sample Address, Champaign IL 61820"
-        coverpicture = "sampleURL"
+        coverpicture = choice(imageList)
         tags = "Default"
         params = urllib.parse.urlencode({ \
             'title': choice(eventNames), \

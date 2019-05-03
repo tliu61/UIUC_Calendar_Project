@@ -15,7 +15,7 @@ class Profile extends Component {
 
         this.state = {
           results: [],
-          curr_user: '5cc4bf7196e2cc098a1c43ee',
+          curr_user: '5cccbff560b8c6162d6080a6',
           name: 'temp',
           email: 'temp',
           picture: 'https://data.whicdn.com/images/293514924/superthumb.jpg?t=1501609884',

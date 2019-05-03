@@ -8,6 +8,8 @@ import axios from 'axios';
 
 import "react-datepicker/dist/react-datepicker.css";
 
+var mongoose = require('mongoose');
+
 const options = [
   { key: 'academic', text: 'Academic', value: 'academic' },
   { key: 'chill', text: 'Chill', value: 'chill' },
@@ -102,7 +104,7 @@ class Searchbox extends Component {
             title:event.target.value
         })
     }
-    postSearch(event, child, limit){
+    postSearch(event, child, limit, skip){
         console.log(this.state);
         var where = {
             "date": { "$gt": this.state.dateFrom, "$lt": this.state.dateEnd },
@@ -121,7 +123,8 @@ class Searchbox extends Component {
         axios.get('/api/events', {
           params: {
             where: JSON.stringify(where),
-            limit: limit ? limit : 0
+            limit: limit ? limit : 0,
+            skip: skip ? skip : 0
           }
         })
           .then(res => this.setState({
@@ -134,7 +137,8 @@ class Searchbox extends Component {
     }
 
     feelLucky(event, child){
-        this.postSearch(event, child, 1);
+        var skip = Math.floor(Math.random() * 30);
+        this.postSearch(event, child, 1, skip);
     }
 
     saveEvent(event){
