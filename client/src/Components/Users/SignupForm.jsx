@@ -17,7 +17,7 @@ class SignupForm extends Component {
             confirmPassword:"",
             securityQuestion:"",
             securityQuestionAnswer:"",
-            profilePic:-1,
+            profilePic:"",
             posted:false,
             successPosted:false
         };
@@ -42,7 +42,7 @@ class SignupForm extends Component {
             confirmPassword:"",
             securityQuestion:"",
             securityQuestionAnswer:"",
-            profilePic:-1,
+            profilePic:"",
             posted:false,
             successPosted:false
         })
@@ -102,10 +102,22 @@ class SignupForm extends Component {
     }
 
     updateProfilePic(event){
-        console.log(event.target.id)
-        this.setState({
-            profilePic:event.target.id
-        })
+        if(!event.target.classList.contains("active")){
+            console.log("Select:",event.target.value);
+            var prevValue = this.state.profilePic;
+            event.target.classList.add("active");
+            this.setState({profilePic: event.target.value}, function () {
+                console.log("profilePic updated");
+            });
+            var profilePicsButtons = document.getElementById("profiles").childNodes;
+            for (var i in profilePicsButtons){
+                if(profilePicsButtons[i].value == prevValue){
+                    profilePicsButtons[i].classList.remove("active");         //unselect the previous button
+                    console.log("removed: ", prevValue);
+                    break;
+                }
+            }
+        }
     }
 
     updateEmail(event){
@@ -193,7 +205,7 @@ class SignupForm extends Component {
                     </Form.Field>
                     <Form.Field>
                         <label> Profile Pic</label>
-                        <Button.Group>
+                        <Button.Group id = "profiles">
                             <Button id = "female" value = "Female" onClick = {this.updateProfilePic}>Female</Button>
                             <Button id="male" value = "Male" onClick = {this.updateProfilePic}>Male</Button>
                             <Button id = "neutural" value = "Neutural" onClick = {this.updateProfilePic}>Neutural</Button>
