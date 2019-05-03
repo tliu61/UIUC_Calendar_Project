@@ -62,7 +62,7 @@ class SignupForm extends Component {
             this.setState({securityQuestion: event.target.value}, function () {
                 console.log("securityQuestion updated");
             });
-            var questionButtons = document.getElementById("questions").childNodes;
+            var questionButtons = document.getElementById ("questions").childNodes;
             for (var i in questionButtons){
                 if(questionButtons[i].value == prevValue){
                     questionButtons[i].classList.remove("active");         //unselect the previous button
@@ -193,10 +193,10 @@ class SignupForm extends Component {
                     <Form.Field required>
                         <label>Security Question</label>
                             <Button.Group id = "questions">
-                                <Button id  = "birthplace" value = "What city were you born in?" onClick = {this.updateSecurityQuestion}>"What city were you born in?"</Button>
-                                <Button id  = "favcolor" value = "What is your favorite color?" onClick = {this.updateSecurityQuestion}>"What is your favorite color?"</Button>
-                                <Button id  = "petname" value = "What is the name of your first pet?" onClick = {this.updateSecurityQuestion}>"What is the name of your first pet?"</Button>
-                                <Button id  = "vacationspot" value = "Where is your dream vacation located?" onClick = {this.updateSecurityQuestion}>"Where is your dream vacation located?"</Button>
+                                <Button id  = "birthplace" class = "btn-block" value = "What city were you born in?" onClick = {this.updateSecurityQuestion}>"What city were you born in?"</Button>
+                                <Button id  = "favcolor" class = "btn-block" value = "What is your favorite color?" onClick = {this.updateSecurityQuestion}>"What is your favorite color?"</Button>
+                                <Button id  = "petname" class = "btn-block" value = "What is the name of your first pet?" onClick = {this.updateSecurityQuestion}>"What is the name of your first pet?"</Button>
+                                <Button id  = "vacationspot" class = "btn-block" value = "Where is your dream vacation located?" onClick = {this.updateSecurityQuestion}>"Where is your dream vacation located?"</Button>
                             </Button.Group>
                     </Form.Field>
                     <Form.Field required>
