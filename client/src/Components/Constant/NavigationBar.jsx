@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import '../../Styles/NavigationBar.css';
 import { Icon } from 'semantic-ui-react';
-
+import UserProfile from '../Users/UserProfile.js';
 
 class NavigationBar extends Component {
 
@@ -10,7 +10,8 @@ class NavigationBar extends Component {
         super();
 
         this.state = {
-            userId: -1
+            userId: -1,
+            login: false
         }
 
         this.updateUser = this.updateUser.bind(this);
@@ -20,6 +21,11 @@ class NavigationBar extends Component {
         console.log("user clicked")
         this.setState({
             userId: 0
+        })
+    }
+    updateLogin(status){
+        this.setState({
+            login : status
         })
     }
     render() {

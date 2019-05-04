@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom'
 import "../../Styles/LoginForm.css"
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
-
-
+import UserProfile from '../Users/UserProfile.js';
+import NavigationBar from '../Constant/NavigationBar';
 
 class LoginForm extends Component {
     constructor(){
@@ -75,12 +75,19 @@ class LoginForm extends Component {
 
         axios.get('/api/users/' + getEmail + '/password/' + getPassword)
           .then(res => {
-            console.log(res.data);
+            console.log(res.data.data);
+            UserProfile.setName(res.data.data.name)
+            UserProfile.setEmail(res.data.data.email)
+            UserProfile.setLogin(true)
             console.log("successPosted");
             this.setState({
                 posted : true,
                 successPosted:true
             })
+            console.log("Name:",res.data.data.name)
+            console.log("Email:",res.data.data.email)
+
+            console.log("UserProfile name:",UserProfile.getName())
           })
           .catch(err => {
             console.log(err.response)
@@ -131,10 +138,12 @@ class LoginForm extends Component {
         );
     }else{
         if(this.state.successPosted === true){
+           // NavigationBar.render()
+            {console.log("Test name:",UserProfile.getName())}
             return (
                 <div className = "loginform_body">
                     <h1>Successfully Logged In! </h1>
-                    <h1>Hello Welcome Back {this.state.username}</h1>
+                    <h1>Hello Welcome Back {UserProfile.getName()}</h1>
                     <Link to='/'>
                         Back To Home To Explore.
                     </Link>

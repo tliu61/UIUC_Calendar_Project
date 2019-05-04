@@ -6,6 +6,7 @@ import axios from 'axios';
 import '../../Styles/Profile.css'
 
 import EventList from '../SearchEvent/EventList'
+import UserProfile from '../Users/UserProfile.js';
 
 
 
@@ -16,8 +17,8 @@ class Profile extends Component {
         this.state = {
           results: [],
           curr_user: '5cccbff560b8c6162d6080a6',
-          name: 'temp',
-          email: 'temp',
+          name: UserProfile.getName(),
+          email: UserProfile.getEmail(),
           picture: 'https://data.whicdn.com/images/293514924/superthumb.jpg?t=1501609884',
           createdevents: [],
           joinedevents: []
@@ -25,28 +26,28 @@ class Profile extends Component {
 
     }
 
-    componentWillMount() {
-      var result;
-      let promise = axios.get(`/api/users/${this.state.curr_user}`)
-        .then(res => {
-          result = res.data.data
-          this.setState({
-            name: result.name,
-            email: result.email,
-            createdevents: result.createdevents,
-            joinedevents: result.savedevents
-          })
-        })
+    // componentWillMount() {
+    //   var result;
+    //   let promise = axios.get(`/api/users/${this.state.curr_user}`)
+    //     .then(res => {
+    //       result = res.data.data
+    //       this.setState({
+    //         name: result.name,
+    //         email: result.email,
+    //         createdevents: result.createdevents,
+    //         joinedevents: result.savedevents
+    //       })
+    //     })
 
-      Promise.resolve(promise).then(() => {
-        this.setState({
-          name: result.name,
-          email: result.email,
-          createdevents: result.createdevents,
-          joinedevents: result.savedevents
-        })
-      })
-    }
+    //   Promise.resolve(promise).then(() => {
+    //     this.setState({
+    //       name: result.name,
+    //       email: result.email,
+    //       createdevents: result.createdevents,
+    //       joinedevents: result.savedevents
+    //     })
+    //   })
+    // }
 
     render() {
       //console.log(this.state.joinedevents)
