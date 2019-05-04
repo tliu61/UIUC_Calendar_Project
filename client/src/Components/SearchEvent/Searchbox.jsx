@@ -246,7 +246,8 @@ class Searchbox extends Component {
         });
         return(
             <div className = "searchevent_body">
-              <Card.Group>{eventComponents}</Card.Group>
+              <Card.Group>{eventComponents}</Card.Group><br></br>
+              <Button color = 'yellow' type = 'submit' onClick = {this.feelLucky}>Another Lucky</Button>
               <Link to='/findevent' onClick = {this.resetSearch}>Re-Search Events</Link>
             </div>
         )
